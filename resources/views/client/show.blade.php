@@ -72,4 +72,33 @@
         </div>
         <div class="col-lg-2"></div>
     </div>
+    {{--<div class="row">--}}
+        {{--<div class="col-lg-8 col-lg-offset-2">--}}
+            {{--<div class="panel panel-default">--}}
+                {{--<div class="color title2 panel_title">--}}
+                    {{--@lang('variables.buy_invoices')--}}
+                {{--</div>--}}
+                {{--<div class="panel-body">--}}
+                    {{--@foreach($client->invoices as $invoice)--}}
+                       {{--<div class="row">--}}
+
+                           {{--<div class="col-xs-3">--}}
+                               {{--{{$invoice->total_after_sales_tax}}--}}
+                           {{--</div>--}}
+                           {{--<div class="col-xs-3">--}}
+                               {{--@lang('variables.the_total')--}}
+                           {{--</div>--}}
+                           {{--<div class="col-xs-3">--}}
+                               {{--{{$invoice->date}}--}}
+                           {{--</div>--}}
+                           {{--<div class="col-xs-3">--}}
+                               {{--@lang('variables.date')--}}
+                           {{--</div>--}}
+                       {{--</div>--}}
+                    {{--@endforeach--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
 @stop

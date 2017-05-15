@@ -4,6 +4,26 @@ $(document).ready(function () {
     var item_to_add={};
     var item = 0;
     //$('#items').val('');
+    $('input[name=type]:radio').change(function(){
+        var val= $(this).val();
+        if(val=='pay')
+        {
+            $('#itemFormLauncher').hide();
+            $('#itemFormTable').hide();
+            $('#bordCalculationTable').hide();
+            $('#DiscountFormGroup').hide();
+            $('#totalShowForPayCheck').removeClass('hidden');
+        }
+        else
+        {
+            $('#itemFormLauncher').show();
+            $('#itemFormTable').show();
+            $('#bordCalculationTable').show();
+            $('#DiscountFormGroup').show();
+            $('#totalShowForPayCheck').addClass('hidden');
+
+        }
+    });
     function calculateItemTotal()
     {
         var itemQuantity = $('#quantity').val();
@@ -12,7 +32,7 @@ $(document).ready(function () {
         var total=(itemPrice - (itemPrice * itemDiscount_percentage) / 100) * itemQuantity;
         total=total.toFixed(3)
         //console.log(total);
-       return total;
+        return total;
     }
     function boardcalc()
     {
@@ -21,7 +41,7 @@ $(document).ready(function () {
         $.each(item_to_add, function( index, value ){
             Total_invoice_before_discount += value.price * value.quantity;
             Total_invoice_after_discount += (value.price-
-                (value.price * value.discount_percent)/100)*value.quantity;
+            (value.price * value.discount_percent)/100)*value.quantity;
         });
         $('#Total_invoice_before_discount').html(Total_invoice_before_discount.toFixed(3));
         $('#Total_invoice_after_discount').html(Total_invoice_after_discount.toFixed(3));
@@ -31,8 +51,8 @@ $(document).ready(function () {
         );
         if( $('#tax_check').is(':checked') )
         {
-            // alert($('#Total_additional_discount').html());
             var total= (Total_invoice_after_discount-(Total_invoice_after_discount*
+            // alert($('#Total_additional_discount').html());
             parseInt($('#Total_invoice_discount').val())/100));
             var taxes=(total+(total*10/100)).toFixed(3);
             // alert(taxes);
@@ -42,7 +62,7 @@ $(document).ready(function () {
         else
         {
             $('#Total_after_taxes').html('0.000');
-            $('#total_after_sales_tax').val('');
+            $('#total_after_sales_tax').val(Total_invoice_after_discount);
         }
 
     }
@@ -68,7 +88,7 @@ $(document).ready(function () {
             table_show += value.quantity;
             table_show += '</td>';
             table_show += '<td>';
-            table_show += '<img src="/images/'+itemsajax[index].picture+'" style="height: 50px;width:50px" >';
+            table_show += '<img src="'+image_path+'/'+itemsajax[index].picture+'" style="height: 50px;width:50px" >';
             table_show += '</td>';
             table_show += '<td>';
             table_show += itemsajax[index].text;
@@ -84,24 +104,23 @@ $(document).ready(function () {
     {
         $.each(item_to_add, function( index, value ){
 
-            $.ajax({url:'/item/search_by_id',
+            $.ajax({url:search_by_id,
                 data: {
-                    query: index, // search term
+                query: index, // search term
                     price_type:$('#price_type').val()
-                },
-                dataType: 'json',
+            },
+            dataType: 'json',
                 success: function (data)
-                {
+            {
 //                                        console.log(data);
-                    item_to_add[index].price=data[0].price
-                    console.log(item_to_add);
-                    buildTable();
-                    boardcalc();
-                    $('#items').val(JSON.stringify(item_to_add));
-                }
-            });
+                item_to_add[index].price=data[0].price;
+                console.log(item_to_add);
+                buildTable();
+                boardcalc();
+                $('#items').val(JSON.stringify(item_to_add));
+            }
         });
-//                    buildTable();
+    });
     }
     function changeDiscount()
     {
@@ -119,13 +138,13 @@ $(document).ready(function () {
         $("#date").datepicker({
             dateFormat: 'yy-mm-dd'
         })
-                  .datepicker('setDate', new Date());
+            .datepicker('setDate', new Date());
     });
 
     $("#clients").select2({
         dir: "rtl",
         ajax: {
-            url: "/client/ajax_search",
+            url: client_ajax_search,
 
             dataType: 'json',
             delay: 250,
@@ -147,16 +166,16 @@ $(document).ready(function () {
             },
             cache: true
         },
-//            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    //            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
         minimumInputLength: 1
-//            templateResult: formatRepo, // omitted for brevity, see the source of this page
-//            templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    //            templateResult: formatRepo, // omitted for brevity, see the source of this page
+    //            templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
     });
 
     $("#items_list").select2({
         dir: "rtl",
         ajax: {
-            url: "/item/ajax_search",
+            url: item_search,
 
             dataType: 'json',
             delay: 250,
@@ -179,10 +198,10 @@ $(document).ready(function () {
             },
             cache: true
         },
-//            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    //            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
         minimumInputLength: 1
-//            templateResult: formatRepo, // omitted for brevity, see the source of this page
-//            templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    //            templateResult: formatRepo, // omitted for brevity, see the source of this page
+    //            templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
     });
     //to work with bootstrap.js
     $('#items_list').on("change", function () {
@@ -191,7 +210,7 @@ $(document).ready(function () {
     });
 
     $('#items_list').on("select2:select", function (e) {
-       //console.log("select2:select", e.params.data);
+        //console.log("select2:select", e.params.data);
         itemsajax[e.params.data.id]=e.params.data;
         //alert('added to array');
         $('#item_price').val(e.params.data.price);
@@ -208,11 +227,11 @@ $(document).ready(function () {
 
     $('#Total_invoice_discount').on('change',function(){
         //$('#total_item').html( calculateItemTotal());
-       var total= parseInt($('#Total_invoice_after_discount').html());
-       var discount=$(this).val();
-       var result=total-(total*discount/100);
-       $('#additional_discount_value').html(total*discount/100);
-       $('#Total_additional_discount').html(result);
+        var total= parseInt($('#Total_invoice_after_discount').html());
+        var discount=$(this).val();
+        var result=total-(total*discount/100);
+        $('#additional_discount_value').html(total*discount/100);
+        $('#Total_additional_discount').html(result);
         if( $('#tax_check').is(':checked') )
         {
             // alert($('#Total_additional_discount').html());
@@ -274,7 +293,7 @@ $(document).ready(function () {
                 table_show += itemQuantity;
                 table_show += '</td>';
                 table_show += '<td>';
-                table_show += '<img src="/images/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
+                table_show += '<img src="'+image_path+'/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
                 table_show += '</td>';
                 table_show += '<td>';
                 table_show += itemsajax[itemId].text;
@@ -288,10 +307,10 @@ $(document).ready(function () {
             else
             {
                 item_to_add[itemId]={
-                                      price:itemPrice,
-                                      discount_percent:itemDiscount_percentage,
-                                      quantity:parseInt(itemQuantity)
-                                        };
+                    price:itemPrice,
+                    discount_percent:itemDiscount_percentage,
+                    quantity:parseInt(itemQuantity)
+                };
                 record[itemId] = itemId + ',' + itemQuantity + ',' + itemPrice + ',' + itemDiscount_percentage;
                 var table_show = '<tr id="' + itemId + '">';
                 table_show+='<td class="delete_item" id="x-'+itemId+'">'+"مسح"+'</td>';
@@ -311,7 +330,7 @@ $(document).ready(function () {
                 table_show += itemQuantity;
                 table_show += '</td>';
                 table_show += '<td>';
-                table_show += '<img src="/images/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
+                table_show += '<img src="'+image_path+'/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
                 table_show += '</td>';
                 table_show += '<td>';
                 table_show += itemsajax[itemId].text;
@@ -341,7 +360,7 @@ $(document).ready(function () {
                     //$('#'.id).hide();
                     $(this).parent().remove();
                     delete item_to_add[id];
-//                           console.log(item_to_add);
+    //                           console.log(item_to_add);
                     $('#items').val(JSON.stringify(item_to_add));
                     boardcalc();
                 });
@@ -391,7 +410,7 @@ $(document).ready(function () {
                 table_show += itemQuantity;
                 table_show += '</td>';
                 table_show += '<td>';
-                table_show += '<img src="/images/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
+                table_show += '<img src="'+image_path+'/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
                 table_show += '</td>';
                 table_show += '<td>';
                 table_show += itemsajax[itemId].text;
@@ -405,10 +424,10 @@ $(document).ready(function () {
             else
             {
                 item_to_add[itemId]={
-                                      price:itemPrice,
-                                      discount_percent:itemDiscount_percentage,
-                                      quantity:parseInt(itemQuantity)
-                                        };
+                    price:itemPrice,
+                    discount_percent:itemDiscount_percentage,
+                    quantity:parseInt(itemQuantity)
+                };
                 record[itemId] = itemId + ',' + itemQuantity + ',' + itemPrice + ',' + itemDiscount_percentage;
                 var table_show = '<tr id="' + itemId + '">';
                 table_show+='<td class="delete_item" id="x-'+itemId+'">'+"مسح"+'</td>';
@@ -428,7 +447,7 @@ $(document).ready(function () {
                 table_show += itemQuantity;
                 table_show += '</td>';
                 table_show += '<td>';
-                table_show += '<img src="/images/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
+                table_show += '<img src="'+image_path+'/'+itemsajax[itemId].picture+'" style="height: 50px;width:50px" >';
                 table_show += '</td>';
                 table_show += '<td>';
                 table_show += itemsajax[itemId].text;
@@ -458,7 +477,7 @@ $(document).ready(function () {
                     //$('#'.id).hide();
                     $(this).parent().remove();
                     delete item_to_add[id];
-//                           console.log(item_to_add);
+    //                           console.log(item_to_add);
                     $('#items').val(JSON.stringify(item_to_add));
                     boardcalc();
                 });
@@ -476,78 +495,14 @@ $(document).ready(function () {
 
     });
 
-    $('input:radio[name="type"]').change(function(){
-            var price='سعر';
-            if (this.checked && this.value == 'buy')
-            {
-
-               var options='<option value="price_32_b">32 b'+price+' </option>'+
-                ' <option value="price_31_a">31 a '+price+'</option>';
-                $('#price_type').html(options);
-                doAjax();
-                changeDiscount();
-                boardcalc();
-            }
-            else if (this.checked && this.value == 'sell')
-            {
-                var options='<option value="price_1050">1050 '+price+'</option>'+
-                   ' <option value="price_1250">1250 '+price+'</option>'+
-            '<option value="price_1034">1034 '+price+'</option>';
-                $('#price_type').html(options);
-                doAjax();
-                changeDiscount();
-                boardcalc();
-            }
-        var type=$('#price_type').val();
-        switch (type)
-        {
-            case 'price_1050':
-                $('#discount_percentage').val(20);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',28);
-                $('#discount_percentage').removeAttr('disabled');
-//                                alert('1050');
-                break;
-            case 'price_1250':
-                $('#discount_percentage').val(20);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',28);
-                $('#discount_percentage').removeAttr('disabled');
-
-                break;
-            case 'price_1034':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-                $('#discount_percentage').attr('disabled','true');
-                break;
-            case 'price_31_a':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-                $('#discount_percentage').attr('disabled','true');
-//                            $('#discount_percentage').attr('hidden','true');
-                break;
-            case 'price_32_b':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-                $('#discount_percentage').attr('disabled','true');
-//                            $('#discount_percentage').attr('hidden','true');
-                break;
-        }
-        doAjax();
-        changeDiscount();
-        boardcalc();
-        });
 
     $('#tax_check').click( function(){
         if( $(this).is(':checked') )
         {
-           // alert($('#Total_additional_discount').html());
+            // alert($('#Total_additional_discount').html());
             var total=parseInt($('#Total_additional_discount').html());
             var taxes=(total+(total*10/100)).toFixed(3);
-           // alert(taxes);
+            // alert(taxes);
             $('#Total_after_taxes').html(taxes);
             $('#total_after_sales_tax').val(taxes);
 
@@ -565,90 +520,9 @@ $(document).ready(function () {
         $('#'.id).hide();
         $(this).parent().remove();
         delete item_to_add[id];
-//                           console.log(item_to_add);
+    //                           console.log(item_to_add);
         $('#items').val(JSON.stringify(item_to_add));
         boardcalc();
-    });
-
-    $('#price_type').on('change',function(){
-
-        var type=$(this).val();
-        switch (type)
-        {
-            case 'price_1050':
-                $('#discount_percentage').val(20);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',28);
-                $('#discount_percentage').removeAttr('disabled');
-//                                alert('1050');
-                break;
-            case 'price_1250':
-                $('#discount_percentage').val(20);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',28);
-                $('#discount_percentage').removeAttr('disabled');
-
-                break;
-            case 'price_1034':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-                $('#discount_percentage').attr('disabled','true');
-                break;
-            case 'price_31_a':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-//                            $('#discount_percentage').attr('disabled','true');
-                $('#discount_percentage').attr('hidden','true');
-                break;
-            case 'price_32_b':
-                $('#discount_percentage').val(0);
-                $('#discount_percentage').attr('min',0);
-                $('#discount_percentage').attr('max',0);
-//                            $('#discount_percentage').attr('disabled','true');
-                $('#discount_percentage').attr('hidden','true');
-                break;
-        }
-        doAjax();
-        changeDiscount();
-        boardcalc();
-
-
-    });
-
-    $('#submit').on('click',function (e){
-        var flag=false;
-        var discount=$('#discount_percentage').val();
-        var total_discount=$('#Total_invoice_discount').val();
-        var total=parseInt(discount)+parseInt(total_discount);
-        var client=$('#client_id').val();
-        var date=$('#date').val();
-        var msg='';
-        if(total>28)
-        {
-            flag=true;
-            msg +='<div>مجموع نسب الخصم لا يجب ان يتعدي ٢٨ ٪ </div>';
-
-        }else{flag=false;}
-        if(client==undefined)
-        {
-            flag=true;
-            msg +='<div> العميل إجباري</div>';
-        }else{flag=false;}
-        if(date=='')
-        {
-            flag=true;
-            msg +='<div> التاريخ إجباري</div>';
-        }else{flag=false;}
-        if(flag)
-        {
-            e.preventDefault();
-            $('#msg').addClass(" alert alert-danger");
-            $('#msg').html('<strong>هناك خطأ</strong>');
-            $('#msg').append(msg);
-
-        }
     });
 
 

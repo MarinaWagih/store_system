@@ -29,12 +29,12 @@
                     {{$invoice->date}} : @lang('variables.date')
                 </p>
             </div>
-            <div class="left first">
-                <img src="{{URL::asset('/logo.jpg')}}" class="show_img">
-            </div>
-            <div class="left first">
-               <img src="{{URL::asset('/pic2.jpg')}}" class="show_img">
-           </div>
+            {{--<div class="left first">--}}
+                {{--<img src="{{URL::asset('/logo.jpg')}}" class="show_img">--}}
+            {{--</div>--}}
+            {{--<div class="left first">--}}
+               {{--<img src="{{URL::asset('/pic2.jpg')}}" class="show_img">--}}
+           {{--</div>--}}
        </div>
         {{--========================================================--}}
         {{--========================================================--}}
@@ -57,56 +57,56 @@
                         <td >{{$invoice->client->phone}}</td>
                         <td> @lang('variables.mobile')  @lang('variables.client')</td>
                     </tr>
-                    <tr class="right">
-                        @if($invoice->price_type=='price_1250')
-                        <td>
-                            @lang('variables.with_installation')
-                            <span class="glyphicon glyphicon-check"></span>
-                        </td>
-                        <td>
-                            @lang('variables.without_installation')
-                            <span class="glyphicon glyphicon-unchecked"></span>
-                        </td>
-                         @elseif($invoice->price_type=='price_1050')
-                            <td>
-                                @lang('variables.with_installation')
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                            </td>
-                            <td>
-                                @lang('variables.without_installation')
-                                <span class="glyphicon glyphicon-check"></span>
-                            </td>
-                        @elseif($invoice->price_type=='price_1034')
-                            <td>
-                                @lang('variables.with_installation')
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                            </td>
-                            <td>
-                                @lang('variables.without_installation')
-                                <span class="glyphicon glyphicon-check"></span>
-                            </td>
-                        @elseif($invoice->price_type=='price_31_a')
-                            <td>
-                                @lang('variables.sell')
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                            </td>
-                            <td>
-                                @lang('variables.buy')
-                                <span class="glyphicon glyphicon-check"></span>
-                            </td>
-                        @elseif($invoice->price_type=='price_32_b')
-                            <td>
-                                @lang('variables.sell')
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                            </td>
-                            <td>
-                                @lang('variables.buy')
-                                <span class="glyphicon glyphicon-check"></span>
-                            </td>
-                        @endif
+                    {{--<tr class="right">--}}
+                        {{--@if($invoice->price_type=='price_1250')--}}
+                        {{--<td>--}}
+                            {{--@lang('variables.with_installation')--}}
+                            {{--<span class="glyphicon glyphicon-check"></span>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--@lang('variables.without_installation')--}}
+                            {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
+                        {{--</td>--}}
+                         {{--@elseif($invoice->price_type=='price_1050')--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.with_installation')--}}
+                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.without_installation')--}}
+                                {{--<span class="glyphicon glyphicon-check"></span>--}}
+                            {{--</td>--}}
+                        {{--@elseif($invoice->price_type=='price_1034')--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.with_installation')--}}
+                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.without_installation')--}}
+                                {{--<span class="glyphicon glyphicon-check"></span>--}}
+                            {{--</td>--}}
+                        {{--@elseif($invoice->price_type=='price_31_a')--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.sell')--}}
+                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.buy')--}}
+                                {{--<span class="glyphicon glyphicon-check"></span>--}}
+                            {{--</td>--}}
+                        {{--@elseif($invoice->price_type=='price_32_b')--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.sell')--}}
+                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@lang('variables.buy')--}}
+                                {{--<span class="glyphicon glyphicon-check"></span>--}}
+                            {{--</td>--}}
+                        {{--@endif--}}
 
 
-                    </tr>
+                    {{--</tr>--}}
                 </table>
             </div>
             <div class="col-lg-1"></div>

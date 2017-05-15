@@ -47,4 +47,6 @@ Route::resource('/item','ItemController');
 Route::get('/invoice/{id}/delete','InvoiceController@destroy');
 Route::post('/invoice/search','InvoiceController@search');
 Route::get('/invoice/search','InvoiceController@search');
+Route::post('/invoice/report','InvoiceController@getTotalFromDateToDate');
+Route::get('/invoice/report','InvoiceController@getTotalFromDateToDateForm');
 Route::resource('/invoice','InvoiceController');

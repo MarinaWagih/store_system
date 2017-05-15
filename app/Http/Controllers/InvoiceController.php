@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Invoice;
+use App\InvoiceItem;
+use App\Item;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -67,7 +69,15 @@ class InvoiceController extends Controller
             'type' => 'required',
             'client_id' => 'required',
         ]);
-        $invoice = Invoice::create($request->all());
+
+        $invoice =new Invoice($request->all());
+//        dd($invoice,$request->all());
+        if($request->get('type')=='pay')
+        {
+            $invoice->total_after_sales_tax=$request->get('total_at_pay');
+        }
+        $invoice->save();
+
         $items=$this->prepareItems($request->get('items'));
         $invoice->items()->sync($items);
         return view('invoice.show')->with(['invoice' => $invoice]);
@@ -181,4 +191,49 @@ class InvoiceController extends Controller
         $items= json_decode($items, true);
         return $items;
     }
+    public function getTotalFromDateToDateForm()
+    {
+        return view('invoice.report');
+    }
+    public function getTotalFromDateToDate(Request $request)
+    {
+        $invoices =Invoice::selectRaw('sum(total_after_sales_tax) as total , type')
+            ->where('date','<=',$request->get('end_date'))
+            ->where('date','>=',$request->get('start_date'))
+            ->groupBy('type')
+            ->lists('total','type')->toArray();
+        $invoices_ids=Invoice::where('date','<=',$request->get('end_date'))
+            ->where('date','>=',$request->get('start_date'))
+            ->lists('id')->toArray();
+        $items=InvoiceItem::selectRaw('sum(quantity) as count , item_id')
+            ->whereIn('invoice_id',$invoices_ids)
+            ->groupBy('item_id')
+            ->get()->toArray();
+        $total_price=0;
+        $total_client_price=0;
+        foreach($items as $i=>$item)
+        {
+            $item_data=Item::Find($item['item_id']);
+            if($item_data)
+            {
+                $items[$i]['item']=$item_data;
+                $items[$i]['total_price']=$item_data->price*$item['count'];
+                $items[$i]['total_client_price']=$item_data->client_price*$item['count'];
+                $total_price+=$items[$i]['total_price'];
+                $total_client_price+=$items[$i]['total_client_price'];
+
+            }
+        }
+        $result=[
+            'invoices_pay_sell'=>$invoices,
+            'total_price'=>$total_price,
+            'total_client_price'=>$total_client_price,
+            'items'=>$items,
+            'start_date'=>$request->get('start_date'),
+            'end_date'=>$request->get('end_date')
+        ];
+//        dd($result);
+        return view('invoice.report',array('result'=>$result));
+    }
+
 }
