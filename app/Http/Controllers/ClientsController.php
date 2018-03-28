@@ -68,7 +68,9 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['name'=>'required',
+        $this->validate($request,[
+                            'name'=>'required',
+                            'code'=>'required',
                             'phone'=>'required|unique:clients|min:7',]);
         $client = Client::create($request->all());
         return redirect()->action('ClientsController@show',['id'=> $client->id]);
@@ -159,6 +161,7 @@ class ClientsController extends Controller
     {
         $name=$request->get('query');
         $clients = Client::where('name', 'like', $name . "%")
+                        ->orWhere('code', 'like', $name . "%")
                         ->orWhere('phone', 'like', '%' .$name . "%")
                         ->orWhere('trading_name', 'like', '%' .$name . "%")
                         ->orWhere('trading_address', 'like', '%' . $name . "%")
@@ -184,7 +187,8 @@ class ClientsController extends Controller
         {
                 $clients = Client::select('id', 'name as text')
                     ->where('name', 'like', $request->get('query') . "%")
-                ->get();
+                    ->where('code', 'like', $request->get('query') . "%")
+                    ->get();
            return response()->json($clients);
         }
         return response()->json();

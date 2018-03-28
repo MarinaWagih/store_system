@@ -18,8 +18,13 @@ class InvoiceItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['invoice_id', 'item_id', 'quantity',
-                            'price', 'discount_percent'];
+    protected $fillable = [
+                            'invoice_id',
+                            'item_id',
+                            'quantity',
+                            'price',
+                            'discount_percent'
+                          ];
     public function invoice()
     {
         return $this->belongsTo('App\Invoice');

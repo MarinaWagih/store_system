@@ -56,6 +56,10 @@
     {!! Form::text('name',null,['class'=>'form-control','placeholder'=>$write.' '.$name ]) !!}
 </div>
 <div class="form-group">
+    {!! Form::label('code',Lang::get('variables.code')) !!}
+    {!! Form::text('code',null,['class'=>'form-control','placeholder'=>$write.' '.Lang::get('variables.code')]) !!}
+</div>
+<div class="form-group">
     {!! Form::label('address',$address) !!}
     {!! Form::text('address',null,['class'=>'form-control','placeholder'=>$write.' '.$address]) !!}
 </div>
@@ -67,14 +71,14 @@
     {!! Form::label('mobile',$mobile) !!}
     {!! Form::text('mobile',null,['class'=>'form-control','placeholder'=>$write.' '.$mobile]) !!}
 </div>
-<div class="form-group">
-    {!! Form::label('trading_name',$trading_name) !!}
-    {!! Form::text('trading_name',null,['class'=>'form-control','placeholder'=>$write.' '.$trading_name]) !!}
-</div>
-<div class="form-group">
-    {!! Form::label('trading_address',$trading_address) !!}
-    {!! Form::text('trading_address',null,['class'=>'form-control','placeholder'=>$write.' '.$trading_address]) !!}
-</div>
+{{--<div class="form-group">--}}
+    {{--{!! Form::label('trading_name',$trading_name) !!}--}}
+    {{--{!! Form::text('trading_name',null,['class'=>'form-control','placeholder'=>$write.' '.$trading_name]) !!}--}}
+{{--</div>--}}
+{{--<div class="form-group">--}}
+    {{--{!! Form::label('trading_address',$trading_address) !!}--}}
+    {{--{!! Form::text('trading_address',null,['class'=>'form-control','placeholder'=>$write.' '.$trading_address]) !!}--}}
+{{--</div>--}}
 <div class="form-group">
     {!! Form::submit($submitText,['class'=>'btn color']) !!}
 </div>

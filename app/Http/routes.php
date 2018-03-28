@@ -43,6 +43,13 @@ Route::get('/item/search','ItemController@search');
 Route::get('/item/ajax_search','ItemController@ajaxSearch');
 Route::get('/item/search_by_id','ItemController@search_by_id');
 Route::resource('/item','ItemController');
+//model type Routes
+Route::get('/model-type/{id}/delete','ModelTypeController@destroy');
+Route::post('/model-type/search','ModelTypeController@search');
+Route::get('/model-type/search','ModelTypeController@search');
+Route::get('/model-type/ajax_search','ModelTypeController@ajaxSearch');
+Route::get('/model-type/search_by_id','ModelTypeController@search_by_id');
+Route::resource('/model-type','ModelTypeController');
 //invoice Routes
 Route::get('/invoice/{id}/delete','InvoiceController@destroy');
 Route::post('/invoice/search','InvoiceController@search');

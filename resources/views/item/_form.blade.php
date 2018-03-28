@@ -27,15 +27,15 @@
     @endif
 </div>
 <div class="form-group">
-    {!! Form::label('name',$name) !!}
-    {!! Form::text('name',null,['class'=>'form-control','placeholder'=>$write.' '.$name ]) !!}
+    {!! Form::label('name',Lang::get('variables.name')) !!}
+    {!! Form::text('name',null,['class'=>'form-control','placeholder'=>Lang::get('variables.write').' '.Lang::get('variables.name') ]) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('code',$code) !!}
-    {!! Form::text('code',null,['class'=>'form-control','placeholder'=>$write.' '.$code ]) !!}
+    {!! Form::label('code',Lang::get('variables.code')) !!}
+    {!! Form::text('code',null,['class'=>'form-control','placeholder'=>Lang::get('variables.write').' '.Lang::get('variables.code') ]) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('price',$price) !!}
+    {!! Form::label('price',Lang::get('variables.price')) !!}
     {!! Form::input('number','price',null,['class'=>'form-control','id'=>'price','min'=>'0','step'=>"0.1"]) !!}
 </div>
 <div class="form-group">
@@ -43,22 +43,43 @@
     {!! Form::input('number','client_price',null,['class'=>'form-control','id'=>'price','min'=>'0','step'=>"0.1"]) !!}
 </div>
 <div class="row">
-    <div class="form-group col-lg-2">
-        {!! Form::label('unit',Lang::get('variables.unit')) !!}
-        {!! Form::text('unit',null,['class'=>'form-control','placeholder'=>Lang::get('variables.unit') ]) !!}
-    </div>
-    <div class="form-group col-lg-10">
+    {{--<div class="form-group col-lg-2">--}}
+        {{--{!! Form::label('unit',Lang::get('variables.unit')) !!}--}}
+        {{--{!! Form::text('unit',null,['class'=>'form-control','placeholder'=>Lang::get('variables.unit') ]) !!}--}}
+    {{--</div>--}}
+    <div class="form-group col-lg-12">
         {!! Form::label('count',Lang::get('variables.count')) !!}
         {!! Form::input('number','count',null,['class'=>'form-control','id'=>'price','min'=>'0','step'=>"1"]) !!}
     </div>
 </div>
-
 <div class="form-group">
-{!! Form::label('picture',$picture) !!}
-{!! Form::file('picture', ['class'=>'form-control']) !!}
+    {!! Form::label('client',Lang::get('variables.client')) !!}
+    {!! Form::select('client_id',$clients,null,['class'=>'js-example-rtl form-control dir-rtl','id'=>'clients']) !!}
 </div>
 <div class="form-group">
-    {!! Form::submit($submitText,['class'=>'btn color']) !!}
+{{--{!! Form::label('model_type_id',Lang::get('variables.modelType')) !!}--}}
+{{--{!! Form::select('model_type_id', ['class'=>'form-control']) !!}--}}
+    <label for="model_type_id">@lang('variables.modelType')</label>
+    <select name="model_type_id" class='form-control' style="direction: rtl">
+        <option value="" data-sizes=""></option>
+        @foreach($modelTypes as $type)
+            <option
+                    value="{{$type->id}}"
+                    data-sizes="@include('item._sizes_form',['sizes'=>$type->sizes])"
+                    {{isset($item)&&$item->model_type_id==$type->id?'selected':''}}
+                    >
+                {{$type->name}}
+            </option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group" id="sizes_count_container">
+    @if(isset($item))
+        @include('item._sizes_form',['sizes'=>$item->modelType->sizes,'values'=>$item->sizes])
+    @endif
+</div>
+<div class="form-group">
+    {!! Form::submit( Lang::get('variables.add'),['class'=>'btn color']) !!}
 </div>
 
 

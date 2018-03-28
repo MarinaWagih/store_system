@@ -16,12 +16,26 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
-            $table->string('picture');
             $table->float('price');
             $table->float('client_price');
             $table->integer('count');
-            $table->string('unit');
+
+            $table->longText('sizes_count');
+
+            $table->integer('model_type_id')->unsigned();
+            $table->foreign('model_type_id')
+                ->references('id')
+                ->on('model_types')
+                ->onDelete('cascade');
+
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')
+                ->references('id')
+                ->on('clients')
+                ->onDelete('cascade');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

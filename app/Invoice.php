@@ -19,19 +19,18 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $fillable = ['date', 'type',
-        'additional_discount_percentage','duration_expire','price_type',
-        'total_after_sales_tax', 'client_id'];
+    protected $fillable = [
+                                'date',
+                                'type',
+                                'additional_discount_percentage',
+                                'duration_expire',
+                                'price_type',
+                                'total_after_sales_tax',
+                                ];
     /**
      * @var array Of dates to be treated as Carbon Object
      */
     protected $dates = ['date'];
-
-    public function client()
-    {
-        return $this->belongsTo('App\Client');
-    }
-
     public function items()
     {
         return $this->belongsToMany('App\Item')

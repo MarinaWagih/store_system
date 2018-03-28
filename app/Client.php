@@ -20,6 +20,7 @@ class Client extends Model
     protected $fillable = [
         'id',
         'name',
+        'code',
         'address',
         'phone',
         'trading_name',
@@ -34,8 +35,8 @@ class Client extends Model
      */
     protected $dates = ['date'];
 
-    public function invoices()
+    public function items()
     {
-        return $this->hasMany('App\Invoice');
+        return $this->hasMany('App\Item');
     }
 }

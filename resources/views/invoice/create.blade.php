@@ -5,7 +5,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/jquery-ui/jquery-ui.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2-bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2-bootstrap.css')}}">
 @stop
 @section('content')
     <div class="col-lg-12">
@@ -33,11 +33,11 @@
     <script src="{{URL::asset('/jquery-ui/jquery-ui.min.js')}}"></script>
     <script src="{{URL::asset('/js/select2.min.js')}}"></script>
     <script src="{{URL::asset('/js/JSON-js/json2.js')}}"></script>
-    <script src="{{URL::asset('/js/invoicePreparation.js')}}"></script>
     <script>
         var  search_by_id='{{ URL::action('ItemController@search_by_id')}}';
         var  client_ajax_search="{{ URL::action('ClientsController@ajaxSearch')}}";
         var  item_search="{{ URL::action('ItemController@ajaxSearch')}}";
         var  image_path='{{URL::asset('images')}}';
     </script>
+    <script src="{{URL::asset('/js/invoicePreparation.js')}}"></script>
 @stop

@@ -101,6 +101,41 @@
     <hr>
     @endif
     {{--**********************************************--}}
+ {{--******************item Element**************--}}
+    @if(Auth::user()->type!='user')
+    <div class="panel-default">
+        <a class="collapsed"
+           role="button"
+           data-toggle="collapse"
+           data-parent="#accordion"
+           href="#collapseModelType" aria-expanded="false"
+           aria-controls="collapseModelType">
+            <div class="color title3 panel_title" role="tab" id="headingModelType">
+                @lang('variables.modelTypes')
+            </div>
+        </a>
+
+        <div id="collapseModelType"
+             class="panel-collapse collapse color"
+             role="tabpanel" aria-labelledby="headingcModelType">
+            <div class="panel-body title4">
+                <a role="button" href="{{ URL::action('ModelTypeController@index') }}" class="dash_link">
+                    @lang('variables.search')
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+                <br>
+                @if(Auth::user()->type=='admin')
+                    <a role="button"  href="{{ URL::action('ModelTypeController@create') }}" class="dash_link">
+                        @lang('variables.add') @lang('variables.modelType')
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                @endif
+            </div>
+        </div>
+    </div>
+    <hr>
+    @endif
+    {{--**********************************************--}}
 
     {{--******************invoice Element**************--}}
     @if(Auth::user()->type!='user')

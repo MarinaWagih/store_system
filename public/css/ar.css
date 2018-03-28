@@ -153,7 +153,7 @@ input, button{
 .bg-logo{
 
     margin:20px auto;
-    background-image: url("../coloredLogo2.jpg") ;
+    /*background-image: url("../coloredLogo2.jpg") ;*/
     background-repeat: no-repeat ;
     background-color: #fff;
     background-position: center;
@@ -216,8 +216,12 @@ input, button{
     float: none;
     display: table-cell;
 }
-
-
+.dir-rtl{
+    direction: rtl;
+}
+.separator-left-gray {
+    border-left: 1px solid #cccccc
+}
 
 
 

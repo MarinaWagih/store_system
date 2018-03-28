@@ -1,14 +1,12 @@
 @extends('app')
 @section('title')
-    @lang('variables.clients')
+    @lang('variables.items')
 @stop
 @section('content')
     <div class="row masafa">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-            {{--<form class=" form-horizontal" role="search" method="POST" action="/client/search">--}}
             <input id="_token" type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input id="search_link" type="hidden" name="search_link" value="{{ URL::action('ClientsController@search') }}">
 
             <div class="col-lg-2">
                 <button id="submit" type="submit" class="btn color">@lang('variables.search')</button>
@@ -20,7 +18,6 @@
                            placeholder="@lang('variables.search')">
                 </div>
             </div>
-            {{--</form>--}}
 
         </div>
 
@@ -30,55 +27,49 @@
 
             <div class="center">
                 <table class="table table-hover">
-                    <caption class="color_pink title3">@lang('variables.clients')</caption>
+                    <caption class="color_pink title3">@lang('variables.items')</caption>
                     <thead>
                     <tr>
                         <th>@lang('variables.operations')</th>
-                        <th>@lang('variables.phone')</th>
                         <th>@lang('variables.code')</th>
                         <th>@lang('variables.name')</th>
                         <th></th>
-
                     </tr>
                     </thead>
                     <tbody id="result">
-                    @if(isset($clients))
-                        @foreach($clients as $client)
+                    @if(isset($modelTypes))
+                        @foreach($modelTypes as $item)
                             <tr>
                                 <td>
-                                    <a href='{{ URL::action('ClientsController@index') }}/{{$client->id}}'>
-                                        @lang('variables.show')
-                                    </a>
-                                    <a href="{{ URL::action('ClientsController@index')}}/{{$client->id}}/edit">
-                                        @lang('variables.edit')</a>
+                                    <a href="{{ URL::action('ModelTypeController@index')}}/{{$item->id}}"> @lang('variables.show')</a>
+
                                     @if(Auth::user()->type=='admin')
-                                        <a href="{{ URL::action('ClientsController@destroy',['id'=>$client->id])}}">@lang('variables.delete')</a>
+                                        <a href="{{ URL::action('ModelTypeController@index')}}/{{$item->id}}/edit">@lang('variables.edit')</a>
+                                        <a href="{{ URL::action('ModelTypeController@index')}}/{{$item->id}}/delete">@lang('variables.delete')</a>
                                     @endif
                                 </td>
-                                <td>{{$client->phone}}</td>
-                                <td>{{$client->code}}</td>
-                                <td>{{$client->name}}</td>
-                                <th scope="row">{{$client->id}}</th>
+                                <td>{{$item->code}}</td>
+                                <td>{{$item->name}}</td>
+                                <th scope="row">{{$item->id}}</th>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div class="center" id="render">
 
-                    {!!$clients->render()!!}
+                    {!!$modelTypes->render()!!}
 
                 </div>
-            <input id="U_type" type="hidden" value="{{Auth::user()->type}}">
+                <input id="U_type" type="hidden" value="{{Auth::user()->type}}">
                 @endif
             </div>
-        </div>
 
+    </div>
 @stop
 @section('js')
     <script>
-        var search_url="{{ URL::action('ClientsController@search') }}";
-        var client_index="{{URL::action('ClientsController@index')}}";
+       var search_url='{{ URL::action('ModelTypeController@search')}}';
+       var index_url='{{ URL::action('ModelTypeController@index')}}';
     </script>
-    <script src="{{ URL::asset('/js/searchClient.js')}}"></script>
-
+    <script src="{{ URL::asset('js/searchModelType.js')}}"></script>
 @stop

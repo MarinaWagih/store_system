@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\Item;
 use App\ModelType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ItemController extends Controller
+class ModelTypeController extends Controller
 {
     /**
      * @var int
@@ -22,7 +21,7 @@ class ItemController extends Controller
      * to add Middleware That needed to this controller
      *which are:
      *  1. user should be authenticated
-     *  2. user should be admin if he/she going to delete an item
+     *  2. user should be admin if he/she going to delete an modelType
      */
     public function __construct()
     {
@@ -38,8 +37,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items=Item::paginate($this->pagination_No);
-        return view('item.all')->with(['items'=>$items]);
+        $modelTypes=ModelType::paginate($this->pagination_No);
+        return view('modelType.all')->with(['modelTypes'=>$modelTypes]);
     }
 
     /**
@@ -49,9 +48,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        $clients = Client::lists('name', 'id');
-        $modelTypes = ModelType::all();
-        return view('item.create',compact('clients','modelTypes'));
+        return view('modelType.create');
     }
 
     /**
@@ -64,8 +61,10 @@ class ItemController extends Controller
     {
         //
         $this->validate($request,['name'=>'required','code'=>'required']);
-        Item::create($request->all());
-        return redirect('item');
+        $values=$request->all();
+//        dd($values);
+        ModelType::create($values);
+        return redirect('model-type');
     }
 
     /**
@@ -76,9 +75,9 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        if ($item) {
-            return view('item.show')->with(['item' => $item]);
+        $modelType = ModelType::find($id);
+        if ($modelType) {
+            return view('modelType.show')->with(['modelType' => $modelType]);
         } else {
             return view('errors.Unauth')->with(['msg' => 'variables.not_found']);
         }
@@ -94,10 +93,9 @@ class ItemController extends Controller
     {
         //
         $clients = Client::lists('name', 'id');
-        $modelTypes = ModelType::all();
-        $item = Item::find($id);
-        if ($item) {
-            return view('item.edit')->with(compact('item','clients','modelTypes'));
+        $modelType = ModelType::find($id);
+        if ($modelType) {
+            return view('modelType.edit')->with(compact('modelType','clients'));
         } else {
             return view('errors.Unauth')->with(['msg' => 'variables.not_found']);
         }
@@ -115,15 +113,10 @@ class ItemController extends Controller
     {
         //
         $this->validate($request,['name'=>'required']);
-        $item = Item::find($id);
-        if ($item) {
-            $item->update($request->all());
-            if($request->file('picture')!==null)
-            {
-                unlink(base_path() . '/public/images/'.$item->picture);
-                $item->picture=$this->saveImg($request);
-            }
-            return redirect('item/'.$item->id);
+        $modelType = ModelType::find($id);
+        if ($modelType) {
+            $modelType->update($request->all());
+            return redirect('model-type/'.$modelType->id);
         } else {
             return view('errors.Unauth')->with(['msg' => 'variables.not_found']);
         }
@@ -138,8 +131,8 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
-        Item::destroy($id);
-        return redirect('item');
+        ModelType::destroy($id);
+        return redirect('model-type');
     }
     /**
      * @param Request $request
@@ -147,16 +140,16 @@ class ItemController extends Controller
      */
     public function search(Request $request)
     {
-        $items = Item::where('name', 'like', $request->get('query') . "%")
+        $modelTypes = ModelType::where('name', 'like', $request->get('query') . "%")
             ->orWhere('code', 'like',$request->get('query')."%")
             ->paginate($this->pagination_No);
-        $result=$items->toArray();
-        $result['render']=$items->render();
+        $result=$modelTypes->toArray();
+        $result['render']=$modelTypes->render();
         if($request->get('type')=='json')
         {
             return response()->json($result);
         }
-        return view('item.all')->with(['items' => $items]);
+        return view('modelType.all')->with(['modelTypes' => $modelTypes]);
     }
     /**
      * @param Request $request
@@ -165,40 +158,26 @@ class ItemController extends Controller
     public function ajaxSearch(Request $request)
     {
         if($request->get('query')!==null) {
-         $items =
-             Item::select('id', 'name as text','picture','client_price as price' )
+         $modelTypes =
+             ModelType::select('id', 'name as text','picture','client_price as price' )
                 ->where('name', 'like', $request->get('query') . "%")
                 ->where('code', 'like', $request->get('query') . "%")
 //                ->orwhere('id', 'like', $request->get('query') . "%")
                 ->get();
-            return response()->json($items);
+            return response()->json($modelTypes);
         }
         return response()->json([]);
     }
     public function search_by_id(Request $request)
     {
         if($request->get('query')!==null) {
-            $items =
-                Item::select('id', 'name as text','picture','client_price as price' )
+            $modelTypes =
+                ModelType::select('id', 'name as text','picture','client_price as price' )
                     ->where('id', '=', $request->get('query'))
                     ->get();
-            return response()->json($items);
+            return response()->json($modelTypes);
         }
         return response()->json([]);
-    }
-    /**
-     * @param $request
-     * @return string New img name
-     */
-    private function saveImg($request)
-    {
-        $imageName=rand(0,9999999999) .
-            rand(0,9999999999) .rand(0,9999999999) .'.'.
-        $request->file('picture')->getClientOriginalExtension();
-        $request->file('picture')->move(
-            base_path() . '/public/images/', $imageName
-        );
-        return $imageName;
     }
 
 

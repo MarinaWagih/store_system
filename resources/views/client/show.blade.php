@@ -34,10 +34,18 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <span class="color_pink pull-right">   @lang('variables.address') </span>
+
+                        <div class=" col-lg-offset-6 col-lg-6 ">
+                            <span class="color_pink  pull-right">   @lang('variables.code')</span>
                             <span class=" pull-right">&nbsp;:&nbsp;</span>
-                            <span class=" pull-right">{{$client->address}}</span>
+                            <span class=" pull-right">{{$client->code}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <span class="color_pink pull-right">   @lang('variables.mobile') </span>
+                            <span class=" pull-right">&nbsp;:&nbsp;</span>
+                            <span class=" pull-right">{{$client->mobile}}</span>
                         </div>
                         <div class="col-lg-6 ">
                             <span class="color_pink pull-right"> @lang('variables.phone')</span>
@@ -45,60 +53,47 @@
                             <span class=" pull-right">{{$client->phone}}</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 ">
-                            <span class="color_pink  pull-right">   @lang('variables.trading_address')</span>
-                            <span class=" pull-right">&nbsp;:&nbsp;</span>
-                            <span class=" pull-right">{{$client->trading_address}}</span>
-                        </div>
-                        <div class="col-lg-6">
-                            <span class="color_pink  pull-right">   @lang('variables.trading_name')</span>
-                            <span class=" pull-right">&nbsp;:&nbsp;</span>
-                            <span class=" pull-right">{{$client->trading_name}}</span>
-                        </div>
 
-                    </div>
                     <div class="row">
 
-                        <div class=" col-lg-offset-6 col-lg-6 ">
-                            <span class="color_pink pull-right">   @lang('variables.date')</span>
+                        <div class="col-lg-12 ">
+                            <span class="color_pink  pull-right">   @lang('variables.address')</span>
                             <span class=" pull-right">&nbsp;:&nbsp;</span>
-                            <span class=" pull-right">{{$client->created_at->format('d-m-Y')}}</span>
+                            <span class=" pull-right">{{$client->address}}</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-lg-2"></div>
     </div>
-    {{--<div class="row">--}}
-        {{--<div class="col-lg-8 col-lg-offset-2">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="color title2 panel_title">--}}
-                    {{--@lang('variables.buy_invoices')--}}
-                {{--</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--@foreach($client->invoices as $invoice)--}}
-                       {{--<div class="row">--}}
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="panel panel-default">
+                <div class="color title2 panel_title">
+                    @lang('variables.items')
+                </div>
+                <div class="panel-body">
+                    @foreach($client->items as $item)
+                       <div class="row">
 
-                           {{--<div class="col-xs-3">--}}
-                               {{--{{$invoice->total_after_sales_tax}}--}}
-                           {{--</div>--}}
-                           {{--<div class="col-xs-3">--}}
-                               {{--@lang('variables.the_total')--}}
-                           {{--</div>--}}
-                           {{--<div class="col-xs-3">--}}
-                               {{--{{$invoice->date}}--}}
-                           {{--</div>--}}
-                           {{--<div class="col-xs-3">--}}
-                               {{--@lang('variables.date')--}}
-                           {{--</div>--}}
-                       {{--</div>--}}
-                    {{--@endforeach--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+                           <div class="col-xs-3">
+                               {{$item->name}}
+                           </div>
+                           <div class="col-xs-3">
+                               @lang('variables.name')
+                           </div>
+                           <div class="col-xs-3">
+                               {{$item->code}}
+                           </div>
+                           <div class="col-xs-3">
+                               @lang('variables.code')
+                           </div>
+                       </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 
 @stop

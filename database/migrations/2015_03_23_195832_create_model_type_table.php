@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoiceTable extends Migration
+class CreateModelTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('model_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
-            $table->enum('type',['sell','pay']);
-            $table->float('additional_discount_percentage');
-            $table->float('total_after_sales_tax');
+            $table->string('code');
+            $table->string('name');
+            $table->longText('sizes');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateInvoiceTable extends Migration
      */
     public function down()
     {
-        Schema::drop('invoices');
+        Schema::drop('model_types');
     }
 }

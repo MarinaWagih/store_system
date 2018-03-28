@@ -55,6 +55,31 @@
 
 
             </div>
+            <div class="center">
+                <span class="color_pink title3">
+                    @lang('variables.theSizes')
+                </span>
+                    <div class="row dir-rtl">
+                        <b class="col-xs-6 pull-right">
+                            @lang('variables.theSize')
+                        </b>
+                        <b class="col-xs-6 pull-right">
+                            @lang('variables.count')
+                        </b>
+                    </div>
+                    @foreach($item->sizes as $size=>$val)
+                        <div class="row dir-rtl">
+                            <div class="col-xs-6 pull-right">
+                                {{$size}}
+                            </div>
+                            <div class="col-xs-6 pull-right">
+                                {{$val}}
+                            </div>
+                        </div>
+                        <hr>
+                    @endforeach
+
+            </div>
         </div>
     </div>
 @stop

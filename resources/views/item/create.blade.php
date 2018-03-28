@@ -9,14 +9,17 @@
     <h1>@lang('variables.add') @lang('variables.item')</h1>
     <hr>
     {!! Form::open(['url'=>'item','files'=>true])!!}
-        @include('item._form',['submitText'=> Lang::get('variables.add'),
-                                 'name'   =>Lang::get('variables.name'),
-                                 'write'  =>Lang::get('variables.write'),
-                                 'price'  =>Lang::get('variables.price'),
-                                 'code'  =>Lang::get('variables.code'),
-                                 'picture'=>Lang::get('variables.picture'),
-
-                                 ])
+        @include('item._form')
     {!! Form::close()!!}
 </div>
+@stop
+@section('js')
+    <script>
+        $(document).ready(function(){
+            var changeSizeCount=function(){
+                $("#sizes_count_container").html($(this).children(":selected").data("sizes"));
+            };
+            $('[name="model_type_id"]').change(changeSizeCount);
+        });
+    </script>
 @stop
