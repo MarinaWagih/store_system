@@ -11,7 +11,7 @@ body {
 
 }
 
-input,select,h4,div,ul,li {
+input,select,h4,div,ul,li,td,th {
 
     text-align: right ;
 
@@ -219,11 +219,39 @@ input, button{
 .dir-rtl{
     direction: rtl;
 }
+.dir-ltr{
+    direction: ltr;
+}
 .separator-left-gray {
     border-left: 1px solid #cccccc
 }
 
+#printableContent{
+    text-align: center !important;
+}
+#printableContent table{
+    text-align: center !important;
+    font-size: 24px;
+    margin: 0 auto;
+    border: #ccc solid 1px;
+}
+#printableContent td {
+    text-align: center !important;
+    border: #ccc solid 1px;
+    word-wrap: break-word;
+}
+#printableContent .brandName {
 
+     padding:15px;
+     border :1px dashed #000;
+     outline:1px dashed #000;
+     outline-offset:-5px;
+}#printableContent tbody>tr:last-child {
+
+
+     border :2px solid #000;
+
+}
 
 
 

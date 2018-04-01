@@ -64,22 +64,15 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'date' => 'required|date',
-            'type' => 'required',
-            'client_id' => 'required',
+            'items' => 'required',
         ]);
 
         $invoice =new Invoice($request->all());
-//        dd($invoice,$request->all());
-        if($request->get('type')=='pay')
-        {
-            $invoice->total_after_sales_tax=$request->get('total_at_pay');
-        }
         $invoice->save();
-
-        $items=$this->prepareItems($request->get('items'));
-        $invoice->items()->sync($items);
+        $invoice->items()->sync($request->get('items'));
         return view('invoice.show')->with(['invoice' => $invoice]);
     }
 
@@ -136,14 +129,13 @@ class InvoiceController extends Controller
     {
         $this->validate($request, [
             'date' => 'required|date',
-            'type' => 'required',
-            'client_id' => 'required',
+            'items' => 'required',
+//            'client_id' => 'required',
         ]);
         $invoice = Invoice::find($id);
         if ($invoice) {
             $invoice->update($request->all());
-            $items=$this->prepareItems($request->get('items'));
-            $invoice->items()->sync($items);
+            $invoice->items()->sync($request->get('items'));
             return view('invoice.show')->with(['invoice' => $invoice]);
         } else {
             return view('errors.Unauth')

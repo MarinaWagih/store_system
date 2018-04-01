@@ -16,6 +16,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
+            $table->string('full_code');
             $table->float('price');
             $table->float('client_price');
             $table->integer('count');

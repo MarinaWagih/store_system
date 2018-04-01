@@ -25,7 +25,7 @@ class Item extends Model
     public function invoices()
     {
         return $this->belongsToMany('App\Invoice')
-            ->withPivot('quantity','price', 'discount_percent');
+            ->withPivot('quantity','price', 'discount_percent','size');
     }
     public function client()
     {
@@ -43,15 +43,29 @@ class Item extends Model
     }
     public function getSizesAttribute()
     {
-//        dd($this->attributes);
         return unserialize($this->attributes['sizes_count']);
     }
     public function save(array $options = [])
     {
         // before save code
-        $this->attributes['sizes_count']="";
-        parent::save();
+        $this->full_code=$this->client->code."/".$this->modelType->code."/".$this->code;
+//        dd($this->attributes['sizes_count']);
+        parent::save($options);
         // after save code
+    }
+    public function getSoldAttribute()
+    {
+
+        $sold=[];
+        foreach($this->invoices as $inv)
+        {
+            if(!isset($sold[$inv->pivot->size]))
+            {
+                $sold[strtolower($inv->pivot->size)]=0;
+            }
+            $sold[$inv->pivot->size]+=$inv->pivot->quantity;
+        }
+        return $sold;
     }
 
 }

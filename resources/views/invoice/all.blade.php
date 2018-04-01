@@ -28,12 +28,12 @@
                 <table class="table table-hover">
                     <caption class="color_pink title3">@lang('variables.invoices')</caption>
                     <thead>
-                    <tr>
-                        <th>@lang('variables.operations')</th>
-                        <th>@lang('variables.date')</th>
-                        <th>@lang('variables.client')</th>
-                        <th>@lang('variables.invoice')</th>
-                        <th>@lang('variables.number')</th>
+                    <tr class="dir-rtl">
+                        <th class="dir-rtl">@lang('variables.operations')</th>
+                        <th class="dir-rtl">@lang('variables.date')</th>
+                        {{--<th>@lang('variables.client')</th>--}}
+                        <th class="dir-rtl">@lang('variables.invoice')</th>
+                        {{--<th>@lang('variables.number')</th>--}}
 
                     </tr>
                     </thead>
@@ -41,17 +41,17 @@
                     @if(isset($invoices))
                         @foreach($invoices as $invoice)
                             <tr>
-                                <td>
+                                <td class="dir-rtl">
                                     <a href="{{ URL::action('InvoiceController@index')}}/{{$invoice->id}}"> @lang('variables.show')</a>
                                     <a href="{{ URL::action('InvoiceController@index')}}/{{$invoice->id}}/edit">@lang('variables.edit')</a>
                                     @if(Auth::user()->type=='admin')
                                         <a href="{{ URL::action('InvoiceController@index')}}/{{$invoice->id}}/delete">@lang('variables.delete')</a>
                                     @endif
                                 </td>
-                                <td>{{$invoice->date}}</td>
-                                <td>{{$invoice->client->name}}</td>
+                                <td class="dir-rtl">{{$invoice->date}}</td>
+                                {{--<td>{{$invoice->client->name}}</td>--}}
 
-                                <th scope="row">{{$invoice->id}}</th>
+                                <th scope="row" class="dir-rtl">{{$invoice->id}}</th>
                             </tr>
                         @endforeach
                     @endif

@@ -168,17 +168,17 @@
     @endif
     {{--**********************************************--}}
     {{--******************report Element**************--}}
-    <div class="panel-default">
-        <a
-           href="{{URL::action('InvoiceController@getTotalFromDateToDateForm')}}"
-           aria-controls="collapseinvoice">
-            <div class="color title3 panel_title" role="tab" id="headinginvoice">
-                              الارباح
-            </div>
-        </a>
+    {{--<div class="panel-default">--}}
+        {{--<a--}}
+           {{--href="{{URL::action('InvoiceController@getTotalFromDateToDateForm')}}"--}}
+           {{--aria-controls="collapseinvoice">--}}
+            {{--<div class="color title3 panel_title" role="tab" id="headinginvoice">--}}
+                              {{--الارباح--}}
+            {{--</div>--}}
+        {{--</a>--}}
 
-    </div>
-    <hr>
+    {{--</div>--}}
+    {{--<hr>--}}
     {{--**********************************************--}}
 </div>
 </div>

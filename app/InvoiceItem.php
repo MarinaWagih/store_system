@@ -23,6 +23,7 @@ class InvoiceItem extends Model
                             'item_id',
                             'quantity',
                             'price',
+                            'size',
                             'discount_percent'
                           ];
     public function invoice()

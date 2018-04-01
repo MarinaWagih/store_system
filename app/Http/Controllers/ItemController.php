@@ -65,7 +65,8 @@ class ItemController extends Controller
         //
         $this->validate($request,['name'=>'required','code'=>'required']);
         Item::create($request->all());
-        return redirect('item');
+        return redirect()->action('ItemController@create');
+
     }
 
     /**
@@ -148,7 +149,7 @@ class ItemController extends Controller
     public function search(Request $request)
     {
         $items = Item::where('name', 'like', $request->get('query') . "%")
-            ->orWhere('code', 'like',$request->get('query')."%")
+            ->orWhere('full_code', 'like',$request->get('query')."%")
             ->paginate($this->pagination_No);
         $result=$items->toArray();
         $result['render']=$items->render();
@@ -166,9 +167,9 @@ class ItemController extends Controller
     {
         if($request->get('query')!==null) {
          $items =
-             Item::select('id', 'name as text','picture','client_price as price' )
+             Item::select('id', 'name as text','client_price as price' )
                 ->where('name', 'like', $request->get('query') . "%")
-                ->where('code', 'like', $request->get('query') . "%")
+                ->orwhere('full_code', 'like', $request->get('query') . "%")
 //                ->orwhere('id', 'like', $request->get('query') . "%")
                 ->get();
             return response()->json($items);
@@ -179,7 +180,7 @@ class ItemController extends Controller
     {
         if($request->get('query')!==null) {
             $items =
-                Item::select('id', 'name as text','picture','client_price as price' )
+                Item::select('id', 'name as text','client_price as price' )
                     ->where('id', '=', $request->get('query'))
                     ->get();
             return response()->json($items);

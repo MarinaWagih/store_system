@@ -5,21 +5,12 @@
 @section('content')
     <div class="row ">
         <div class="col-lg-4 masafa  h1">
-            @if($item->picture!="")
-            <img src="{{URL::asset('images/'.$item->picture)}}" class="item_image"/>
-            @else
-                <i class="glyphicon glyphicon-picture"></i>
-            @endif
         </div>
         <div class="col-lg-8">
-            <h1>
-                <kbd>{{$item->name}}</kbd>
+            <h1 class="dir-rtl">
+                <kbd>{{$item->code}}</kbd> {{$item->name}}
             </h1>
             <hr>
-            <h3>
-                {{ $item->code}} :  @lang('variables.code')
-            </h3>
-
             <div class="center">
                 <table class="table table-hover right">
                     <caption class="color_pink title3">@lang('variables.prices')</caption>
@@ -59,22 +50,35 @@
                 <span class="color_pink title3">
                     @lang('variables.theSizes')
                 </span>
-                    <div class="row dir-rtl">
-                        <b class="col-xs-6 pull-right">
+                    <div class="row dir-rtl masafa margin-check">
+                        <b class="col-xs-3 pull-right">
                             @lang('variables.theSize')
                         </b>
-                        <b class="col-xs-6 pull-right">
+                        <b class="col-xs-3 pull-right">
                             @lang('variables.count')
+                        </b>
+                        <b class="col-xs-3 pull-right">
+                            @lang('variables.sold')
+                        </b>
+                        <b class="col-xs-3 pull-right">
+                            @lang('variables.remains')
                         </b>
                     </div>
                     @foreach($item->sizes as $size=>$val)
-                        <div class="row dir-rtl">
-                            <div class="col-xs-6 pull-right">
+                        <div class="row dir-rtl masafa margin-check">
+                            <div class="col-xs-3 pull-right">
                                 {{$size}}
                             </div>
-                            <div class="col-xs-6 pull-right">
+                            <div class="col-xs-3 pull-right">
                                 {{$val}}
                             </div>
+                            <div class="col-xs-3 pull-right">
+                                {{$item->sold[strtolower($size)] or 0}}
+                            </div>
+                            <div class="col-xs-3 pull-right">
+                                {{intval($val)-intval(isset($item->sold[strtolower($size)])?$item->sold[strtolower($size)]:0)}}
+                            </div>
+
                         </div>
                         <hr>
                     @endforeach

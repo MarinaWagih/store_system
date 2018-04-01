@@ -1,11 +1,11 @@
 @extends('app')
 
-@section('css')
-    <link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap-theme.min.css')}}">
-    <link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/ar.css')}}">
+{{--@section('css')--}}
+    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap.min.css')}}">--}}
+    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap-theme.min.css')}}">--}}
+    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/ar.css')}}">--}}
 
-@stop
+{{--@stop--}}
 @section('title')
     @lang('variables.invoice')  @lang('variables.number1')  {{$invoice->id}}
 @stop
@@ -45,18 +45,18 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-9">
                 <table class="table table-responsive table-bordered">
-                    <tr class="right">
-                        <td >{{$invoice->client->name}}</td>
-                        <td> @lang('variables.name')  @lang('variables.client')</td>
-                    </tr>
-                    <tr class="right">
-                        <td >{{$invoice->client->address}}</td>
-                        <td> @lang('variables.address')  @lang('variables.client')</td>
-                    </tr>
-                    <tr class="right">
-                        <td >{{$invoice->client->phone}}</td>
-                        <td> @lang('variables.mobile')  @lang('variables.client')</td>
-                    </tr>
+                    {{--<tr class="right">--}}
+                        {{--<td >{{$invoice->client->name}}</td>--}}
+                        {{--<td> @lang('variables.name')  @lang('variables.client')</td>--}}
+                    {{--</tr>--}}
+                    {{--<tr class="right">--}}
+                        {{--<td >{{$invoice->client->address}}</td>--}}
+                        {{--<td> @lang('variables.address')  @lang('variables.client')</td>--}}
+                    {{--</tr>--}}
+                    {{--<tr class="right">--}}
+                        {{--<td >{{$invoice->client->phone}}</td>--}}
+                        {{--<td> @lang('variables.mobile')  @lang('variables.client')</td>--}}
+                    {{--</tr>--}}
                     {{--<tr class="right">--}}
                         {{--@if($invoice->price_type=='price_1250')--}}
                         {{--<td>--}}
@@ -127,7 +127,7 @@
                         <th>@lang('variables.percentage')  @lang('variables.discount')</th>
                         <th>@lang('variables.price') @lang('variables.before') @lang('variables.discount')</th>
                         <th>@lang('variables.quantity')</th>
-                        <th>@lang('variables.image')</th>
+                        <th>@lang('variables.theSize')</th>
                         <th>@lang('variables.name')</th>
                         <th>@lang('variables.number')</th>
                     </tr>
@@ -152,7 +152,7 @@
                                     {{ $item->pivot->quantity  }}
                                 </td>
                                 <td>
-                                    <img src="{{URL::asset('images/'.$item->picture)}}" style="height: 50px;width:50px">
+                                    {{ $item->pivot->size  }}
                                 </td>
                                 <td>
                                     {{ $item->name  }}
@@ -282,26 +282,47 @@
         </div>
         {{--========================================================--}}
         {{--========================================================--}}
-        <div class="row">
-            <div class="col-xs-3">
-                <p class="title5">
-                    توقيع العميل
-                </p>
-            </div>
-            <div class="col-xs-9">
-                    <p class="title5">
-                        نرجو أن يحوز العرض قبولكم
-                    </p>
-                    <p class="title5">
-                        لا يعتد بهذا المستند إلا بأصل الفتورة معتمدة و مختومة من الشركة
-                    </p>
-            </div>
+    </div>
+    <div id="printableArea" class="hidden">
+        <div id="printableContent" class="dir-ltr">
+            <h1 class="brandName">Skull</h1>
+            <p class="title4">
+               Number: {{$invoice->id}}
+            </p>
+            <hr>
+            <p class="title4">
+               Date: {{$invoice->created_at->format('d - m - Y')}}
+            </p>
+            <table >
+                <thead>
+                     <tr>
+                         <td width="40%">item </td>
+                         <td width="20%">quantity</td>
+                         <td width="20%">size</td>
+                         <td width="20%">price</td>
+                     </tr>
+                </thead>
+                    <tbody>
+                    @foreach($invoice->items as $item)
+                        <tr>
+                            <td > {{ $item->name  }} </td>
+                            <td > {{ $item->pivot->quantity  }}</td>
+                            <td > {{ $item->pivot->size  }}</td>
+                            <td > {{ $item->pivot->price  }}</td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="2"> total: </td>
+                        <td colspan="2"> {{$invoice->totalAfterDiscount()}}</td>
+                    </tr>
+                    </tbody>
+            </table>
         </div>
     </div>
-
 @stop
 @section('js')
-{{--    <script src="{{URL::asset('js/jquery-1.6.2.min.js')}}"></script>--}}
-    <script src="{{URL::asset('js/jquery.PrintArea.js_4.js')}}"></script>
+{{--    <script src="{{URL::asset('js/jquery.PrintArea.js_4.js')}}"></script>--}}
+    <script src="{{URL::asset('js/printThis.js')}}"></script>
+
     <script src="{{URL::asset('js/core.js')}}"></script>
-    @stop
+@stop

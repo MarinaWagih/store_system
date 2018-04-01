@@ -70,10 +70,9 @@ class ClientsController extends Controller
     {
         $this->validate($request,[
                             'name'=>'required',
-                            'code'=>'required',
-                            'phone'=>'required|unique:clients|min:7',]);
-        $client = Client::create($request->all());
-        return redirect()->action('ClientsController@show',['id'=> $client->id]);
+                            'code'=>'required']);
+         Client::create($request->all());
+        return view('client.create');
     }
 
     /**

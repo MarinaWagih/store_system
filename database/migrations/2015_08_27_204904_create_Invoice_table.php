@@ -15,7 +15,6 @@ class CreateInvoiceTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->enum('type',['sell','pay']);
             $table->float('additional_discount_percentage');
             $table->float('total_after_sales_tax');
             $table->timestamps();

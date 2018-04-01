@@ -33,11 +33,12 @@
     <script src="{{URL::asset('/jquery-ui/jquery-ui.min.js')}}"></script>
     <script src="{{URL::asset('/js/select2.min.js')}}"></script>
     <script src="{{URL::asset('/js/JSON-js/json2.js')}}"></script>
+    <script src="{{URL::asset('/js/jquery.repeater.min.js')}}"></script>
     <script>
         var  search_by_id='{{ URL::action('ItemController@search_by_id')}}';
         var  client_ajax_search="{{ URL::action('ClientsController@ajaxSearch')}}";
         var  item_search="{{ URL::action('ItemController@ajaxSearch')}}";
-        var  image_path='{{URL::asset('images')}}';
+
     </script>
     <script src="{{URL::asset('/js/invoicePreparation.js')}}"></script>
 @stop

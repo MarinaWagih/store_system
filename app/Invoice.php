@@ -21,11 +21,8 @@ class Invoice extends Model
      */
     protected $fillable = [
                                 'date',
-                                'type',
                                 'additional_discount_percentage',
-                                'duration_expire',
-                                'price_type',
-                                'total_after_sales_tax',
+                                'total_after_sales_tax'
                                 ];
     /**
      * @var array Of dates to be treated as Carbon Object
@@ -34,7 +31,7 @@ class Invoice extends Model
     public function items()
     {
         return $this->belongsToMany('App\Item')
-            ->withPivot('quantity', 'price', 'discount_percent');
+            ->withPivot('quantity', 'price', 'discount_percent','size');
     }
 
     public function getDateAttribute()

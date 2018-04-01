@@ -1,11 +1,7 @@
 $(function() {
 	
 	$('#print').click(function() {
-        //alert('in');
-		//var container = $(this).attr('rel');
-		//$('#content').printArea();
-        printAssessment()
-		return false;
+      $("#printableContent").printThis();
 	});
 	
 });

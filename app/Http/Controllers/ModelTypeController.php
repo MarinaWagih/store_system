@@ -62,9 +62,8 @@ class ModelTypeController extends Controller
         //
         $this->validate($request,['name'=>'required','code'=>'required']);
         $values=$request->all();
-//        dd($values);
         ModelType::create($values);
-        return redirect('model-type');
+        return view('modelType.create');
     }
 
     /**
