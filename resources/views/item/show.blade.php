@@ -11,6 +11,10 @@
                 <kbd>{{$item->code}}</kbd> {{$item->name}}
             </h1>
             <hr>
+            <h1 class="dir-rtl">
+              @lang('variables.full_code')  <kbd>{{$item->full_code}}</kbd>
+            </h1>
+            <hr>
             <div class="center">
                 <table class="table table-hover right">
                     <caption class="color_pink title3">@lang('variables.prices')</caption>

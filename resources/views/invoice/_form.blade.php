@@ -46,6 +46,10 @@
     {!! Form::label('date',$date) !!}
     {!! Form::input('date','date',null,['class'=>'form-control ','id'=>'date',]) !!}
 </div>
+<div class="form-group col-md-12">
+    {!! Form::label('client_name',Lang::get('variables.client_name')) !!}
+    {!! Form::text('client_name',null,['class'=>'form-control ','id'=>'client_name']) !!}
+</div>
 {{--========================================================--}}
 {{--========================================================--}}
 @include('invoice._item_invoice')

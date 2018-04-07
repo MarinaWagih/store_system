@@ -34,6 +34,7 @@
                         <th>@lang('variables.price') </th>
                         <th>@lang('variables.client_price')</th>
                         <th>@lang('variables.code')</th>
+                        <th>@lang('variables.full_code')</th>
                         <th>@lang('variables.name')</th>
                         <th>@lang('variables.number')</th>
                     </tr>
@@ -53,6 +54,7 @@
                                 <td>{{$item->price}}</td>
                                 <td>{{$item->client_price}}</td>
                                 <td>{{$item->code}}</td>
+                                <td>{{$item->full_code}}</td>
                                 <td>{{$item->name}}</td>
                                 <th scope="row">{{$item->id}}</th>
                             </tr>

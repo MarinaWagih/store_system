@@ -59,6 +59,8 @@ $(document).ready(function () {
             console.log('changeeeeeeee select');
             $('[name="'+$(this).attr('name').replace('item_id','price')+'"]')
                 .val(e.params.data.price);
+            $('[name="'+$(this).attr('name').replace('item_id','quantity')+'"]')
+                .val(1);
             ItemsChange();
         });
     };
@@ -87,5 +89,6 @@ $(document).ready(function () {
     $(document).on('change','._item_details',ItemsChange);
     bindSelec2($(".items_list"));
     //$("[data-repeater-create]").trigger('click');
+    ItemsChange();
 
 });

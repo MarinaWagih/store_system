@@ -22,8 +22,9 @@ class Invoice extends Model
     protected $fillable = [
                                 'date',
                                 'additional_discount_percentage',
-                                'total_after_sales_tax'
-                                ];
+                                'total_after_sales_tax',
+                                'client_name'
+                          ];
     /**
      * @var array Of dates to be treated as Carbon Object
      */

@@ -149,7 +149,7 @@ class ItemController extends Controller
     public function search(Request $request)
     {
         $items = Item::where('name', 'like', $request->get('query') . "%")
-            ->orWhere('full_code', 'like',$request->get('query')."%")
+            ->orWhere('full_code', '=',$request->get('query'))
             ->paginate($this->pagination_No);
         $result=$items->toArray();
         $result['render']=$items->render();
@@ -169,7 +169,7 @@ class ItemController extends Controller
          $items =
              Item::select('id', 'name as text','client_price as price' )
                 ->where('name', 'like', $request->get('query') . "%")
-                ->orwhere('full_code', 'like', $request->get('query') . "%")
+                ->orwhere('full_code', '=', $request->get('query'))
 //                ->orwhere('id', 'like', $request->get('query') . "%")
                 ->get();
             return response()->json($items);

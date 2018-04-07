@@ -29,6 +29,10 @@ class ModelType extends Model
     }
     public function getSizesAttribute($value)
     {
+        if($value=="")
+        {
+            $value="a:0:{}";
+        }
         $value=array_values(unserialize($value)) ;
         return array_combine ($value,$value);
     }

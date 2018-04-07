@@ -19,7 +19,7 @@ class InvoiceController extends Controller
      * @var int
      * Number of pagination result
      */
-    protected $pagination_No = 5;
+    protected $pagination_No = 10;
 
     /**
      * Constructor
@@ -42,7 +42,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::paginate($this->pagination_No);
+        $invoices = Invoice::orderBy('date', 'asc')
+            ->paginate($this->pagination_No);
         return view('invoice.all')->with(['invoices' => $invoices]);
     }
 

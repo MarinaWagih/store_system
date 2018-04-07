@@ -1,18 +1,10 @@
 @extends('app')
-
-{{--@section('css')--}}
-    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap.min.css')}}">--}}
-    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/bootstrap-theme.min.css')}}">--}}
-    {{--<link rel="stylesheet" media="print" type="text/css" href="{{ URL::asset('css/ar.css')}}">--}}
-
-{{--@stop--}}
 @section('title')
     @lang('variables.invoice')  @lang('variables.number1')  {{$invoice->id}}
 @stop
 @section('content')
     <button class="btn btn-warning masafa" id="print">@lang('variables.print')</button>
     <div class="wrapper"></div>
-
     <div class="masafa bg-logo" id="content">
 
         {{--===================id&& 2images=========================--}}
@@ -22,11 +14,15 @@
                 <br>
                 <br>
                 <p class="title4">
-                    {{$invoice->id}} : @lang('variables.number1') @lang('variables.show')
+                    {{$invoice->id}} : @lang('variables.number')
                 </p>
                 <hr>
                 <p class="title4">
                     {{$invoice->date}} : @lang('variables.date')
+                </p>
+                <hr>
+                <p class="title4">
+                    {{$invoice->client_name}} : @lang('variables.client_name')
                 </p>
             </div>
             {{--<div class="left first">--}}
@@ -38,82 +34,6 @@
        </div>
         {{--========================================================--}}
         {{--========================================================--}}
-        <br>
-        {{--===================Client data==========================--}}
-        {{--========================================================--}}
-        <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-9">
-                <table class="table table-responsive table-bordered">
-                    {{--<tr class="right">--}}
-                        {{--<td >{{$invoice->client->name}}</td>--}}
-                        {{--<td> @lang('variables.name')  @lang('variables.client')</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr class="right">--}}
-                        {{--<td >{{$invoice->client->address}}</td>--}}
-                        {{--<td> @lang('variables.address')  @lang('variables.client')</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr class="right">--}}
-                        {{--<td >{{$invoice->client->phone}}</td>--}}
-                        {{--<td> @lang('variables.mobile')  @lang('variables.client')</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr class="right">--}}
-                        {{--@if($invoice->price_type=='price_1250')--}}
-                        {{--<td>--}}
-                            {{--@lang('variables.with_installation')--}}
-                            {{--<span class="glyphicon glyphicon-check"></span>--}}
-                        {{--</td>--}}
-                        {{--<td>--}}
-                            {{--@lang('variables.without_installation')--}}
-                            {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
-                        {{--</td>--}}
-                         {{--@elseif($invoice->price_type=='price_1050')--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.with_installation')--}}
-                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.without_installation')--}}
-                                {{--<span class="glyphicon glyphicon-check"></span>--}}
-                            {{--</td>--}}
-                        {{--@elseif($invoice->price_type=='price_1034')--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.with_installation')--}}
-                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.without_installation')--}}
-                                {{--<span class="glyphicon glyphicon-check"></span>--}}
-                            {{--</td>--}}
-                        {{--@elseif($invoice->price_type=='price_31_a')--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.sell')--}}
-                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.buy')--}}
-                                {{--<span class="glyphicon glyphicon-check"></span>--}}
-                            {{--</td>--}}
-                        {{--@elseif($invoice->price_type=='price_32_b')--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.sell')--}}
-                                {{--<span class="glyphicon glyphicon-unchecked"></span>--}}
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--@lang('variables.buy')--}}
-                                {{--<span class="glyphicon glyphicon-check"></span>--}}
-                            {{--</td>--}}
-                        {{--@endif--}}
-
-
-                    {{--</tr>--}}
-                </table>
-            </div>
-            <div class="col-lg-1"></div>
-        </div>
-        {{--========================================================--}}
-        {{--========================================================--}}
-        <br>
         {{--=====================Items==============================--}}
         {{--========================================================--}}
         <div class="row">
@@ -293,7 +213,7 @@
             <p class="title4">
                Date: {{$invoice->created_at->format('d - m - Y')}}
             </p>
-            <table >
+            <table width="100%">
                 <thead>
                      <tr>
                          <td width="40%">item </td>
@@ -317,11 +237,11 @@
                     </tr>
                     </tbody>
             </table>
+            <h3> @lang('variables.printing_txt') </h3>
         </div>
     </div>
 @stop
 @section('js')
-{{--    <script src="{{URL::asset('js/jquery.PrintArea.js_4.js')}}"></script>--}}
     <script src="{{URL::asset('js/printThis.js')}}"></script>
 
     <script src="{{URL::asset('js/core.js')}}"></script>
