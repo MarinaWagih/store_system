@@ -206,14 +206,14 @@
     <div id="printableArea" class="hidden">
         <div id="printableContent" class="dir-ltr">
             <h1 class="brandName">Skull</h1>
-            <p class="title4">
+            <p class="title-print">
                Number: {{$invoice->id}}
             </p>
             <hr>
-            <p class="title4">
-               Date: {{$invoice->created_at->format('d - m - Y')}}
+            <p class="title-print">
+               Date: {{$invoice->date}}
             </p>
-            <table width="100%">
+            <table width="100%" class="title-print">
                 <thead>
                      <tr>
                          <td width="40%">item </td>
@@ -242,6 +242,9 @@
     </div>
 @stop
 @section('js')
+    <script >
+        var autoPrint="{{isset($autoPrint)?$autoPrint:false}}";
+    </script>
     <script src="{{URL::asset('js/printThis.js')}}"></script>
 
     <script src="{{URL::asset('js/core.js')}}"></script>

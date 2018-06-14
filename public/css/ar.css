@@ -112,6 +112,10 @@ input, button{
     font-size: 20px;
 }
 
+.title-print{
+    font-size: 20px;
+}
+
 .dash_link{
     color:#e8edf3;
 
@@ -143,6 +147,8 @@ input, button{
 .title5{
     font-size: 16px;
 }
+
+
 #items_list
 {
     width:560px !important;

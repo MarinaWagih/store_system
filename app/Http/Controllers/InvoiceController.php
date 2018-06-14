@@ -74,7 +74,7 @@ class InvoiceController extends Controller
         $invoice =new Invoice($request->all());
         $invoice->save();
         $invoice->items()->sync($request->get('items'));
-        return view('invoice.show')->with(['invoice' => $invoice]);
+        return view('invoice.show')->with(['invoice' => $invoice,"autoPrint"=>true]);
     }
 
     /**
@@ -190,18 +190,20 @@ class InvoiceController extends Controller
     }
     public function getTotalFromDateToDate(Request $request)
     {
-        $invoices =Invoice::selectRaw('sum(total_after_sales_tax) as total , type')
-            ->where('date','<=',$request->get('end_date'))
-            ->where('date','>=',$request->get('start_date'))
-            ->groupBy('type')
-            ->lists('total','type')->toArray();
-        $invoices_ids=Invoice::where('date','<=',$request->get('end_date'))
+//        dd($request->all());
+        $invoices =Invoice::selectRaw('sum(total_after_sales_tax) as total')
+            ->where('date','<=',$request->get('start_date'))
+            ->where('date','>=',$request->get('end_date'))
+            ->lists('total')->toArray();
+        $invoices_ids=Invoice::
+              where('date','<=',$request->get('end_date'))
             ->where('date','>=',$request->get('start_date'))
             ->lists('id')->toArray();
         $items=InvoiceItem::selectRaw('sum(quantity) as count , item_id')
             ->whereIn('invoice_id',$invoices_ids)
             ->groupBy('item_id')
-            ->get()->toArray();
+            ->get()
+            ->toArray();
         $total_price=0;
         $total_client_price=0;
         foreach($items as $i=>$item)

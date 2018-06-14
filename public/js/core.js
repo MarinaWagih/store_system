@@ -10,9 +10,14 @@ $(document).keydown(function(event) {
         event.preventDefault();
         printAssessment();
     }
-});
+})
 
 function printAssessment() {
-    //alert("Print the little page");
-    window.print();
+    $('#print').trigger('click');
 }
+$(document).ready(function () {
+    if(autoPrint&&autoPrint!=false)
+    {
+        printAssessment();
+    }
+});

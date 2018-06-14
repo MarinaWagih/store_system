@@ -17,19 +17,24 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <input id="start_date" name="start_date" type="text"
+                        <input id="end_date" name="end_date" type="text"
                                class="form-control"
-                               value="{{isset($result)&&isset($result['start_date'])?$result['start_date']:''}}"
-                               placeholder="@lang('variables.start_date')">
+                               value="{{isset($result)&&isset(
+                               $result['end_date'])?$result['end_date']:''}}"
+                               placeholder="@lang('variables.end_date')">
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <input id="end_date" name="end_date" type="text" class="form-control"
-                               value="{{isset($result)&&isset($result['end_date'])?$result['end_date']:''}}"
-                               placeholder="@lang('variables.end_date')">
+                        <input id="start_date" name="start_date" type="text"
+                               class="form-control"
+                               value="{{isset($result)&&
+                               isset($result['start_date'])?
+                               $result['start_date']:''}}"
+                               placeholder="@lang('variables.start_date')">
                     </div>
                 </div>
+
             </form>
 
         </div>
