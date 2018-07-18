@@ -57,6 +57,7 @@ class Item extends Model
     {
 
         $sold=[];
+        $sold['all']=0;
         foreach($this->invoices as $inv)
         {
             if(!isset($sold[$inv->pivot->size]))
@@ -64,7 +65,9 @@ class Item extends Model
                 $sold[strtolower($inv->pivot->size)]=0;
             }
             $sold[$inv->pivot->size]+=$inv->pivot->quantity;
+            $sold['all'] += $inv->pivot->quantity;
         }
+//        dd($sold);
         return $sold;
     }
 

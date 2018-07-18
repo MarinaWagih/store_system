@@ -43,7 +43,10 @@
                             <td> @lang('variables.count')</td>
                             {{--<td><span class="glyphicon glyphicon-tag"></span></td>--}}
                         </tr>
-
+                        <tr>
+                            <td> {{$item->sold['all']}}</td>
+                            <td> @lang('variables.sold')</td>
+                        </tr>
                     @endif
                     </tbody>
                 </table>
@@ -61,12 +64,14 @@
                         <b class="col-xs-3 pull-right">
                             @lang('variables.count')
                         </b>
+                        @if(Auth::user()->type=='admin')
                         <b class="col-xs-3 pull-right">
                             @lang('variables.sold')
                         </b>
                         <b class="col-xs-3 pull-right">
                             @lang('variables.remains')
                         </b>
+                        @endif
                     </div>
                     @foreach($item->sizes as $size=>$val)
                         <div class="row dir-rtl masafa margin-check">
@@ -76,13 +81,14 @@
                             <div class="col-xs-3 pull-right">
                                 {{$val}}
                             </div>
+                            @if(Auth::user()->type=='admin')
                             <div class="col-xs-3 pull-right">
                                 {{$item->sold[strtolower($size)] or 0}}
                             </div>
                             <div class="col-xs-3 pull-right">
                                 {{intval($val)-intval(isset($item->sold[strtolower($size)])?$item->sold[strtolower($size)]:0)}}
                             </div>
-
+                            @endif
                         </div>
                         <hr>
                     @endforeach
