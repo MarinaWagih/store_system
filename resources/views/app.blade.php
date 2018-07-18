@@ -41,6 +41,7 @@
 </div>
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 Dashboard right-side">
     {{--******************Client Element**************--}}
+     @if(Auth::user()->type=='admin')
     <div class="panel-default">
         <a class="collapsed" role="button"
            data-toggle="collapse" data-parent="#accordion"
@@ -67,11 +68,11 @@
             </div>
             </div>
         </div>
-
+    <hr> 
+    @endif
     {{--**********************************************--}}
-    <hr>
+    
     {{--******************item Element**************--}}
-    @if(Auth::user()->type!='user')
     <div class="panel-default">
         <a class="collapsed" role="button"
            data-toggle="collapse" data-parent="#accordion"
@@ -99,10 +100,8 @@
         </div>
     </div>
     <hr>
-    @endif
     {{--**********************************************--}}
- {{--******************item Element**************--}}
-    @if(Auth::user()->type!='user')
+    {{--******************item Element**************--}}
     <div class="panel-default">
         <a class="collapsed"
            role="button"
@@ -134,11 +133,9 @@
         </div>
     </div>
     <hr>
-    @endif
     {{--**********************************************--}}
 
     {{--******************invoice Element**************--}}
-    @if(Auth::user()->type!='user')
     <div class="panel-default">
         <a class="collapsed" role="button"
            data-toggle="collapse" data-parent="#accordion"
@@ -151,11 +148,13 @@
 
         <div id="collapseinvoice" class="panel-collapse collapse color" role="tabpanel" aria-labelledby="headinginvoice">
             <div class="panel-body title4">
+                 @if(Auth::user()->type=='admin')
                 <a role="button" href="{{ URL::action('InvoiceController@index') }}" class="dash_link">
                     @lang('variables.search')
                     <span class="glyphicon glyphicon-search"></span>
                 </a>
                 <br>
+                @endif
                 <a role="button"  href="{{ URL::action('InvoiceController@create') }}" class="dash_link">
 
                     @lang('variables.add') @lang('variables.invoice')
@@ -165,9 +164,11 @@
         </div>
     </div>
     <hr>
-    @endif
+  
     {{--**********************************************--}}
     {{--******************report Element**************--}}
+        @if(Auth::user()->type!='user')
+
     <div class="panel-default">
         <a
            href="{{URL::action('InvoiceController@getTotalFromDateToDateForm')}}"
@@ -179,6 +180,7 @@
 
     </div>
     <hr>
+    @endif
     {{--**********************************************--}}
 </div>
 </div>

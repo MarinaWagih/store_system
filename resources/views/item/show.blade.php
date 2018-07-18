@@ -33,21 +33,24 @@
                             <td>@lang('variables.price')</td>
                             {{--<td><span class="glyphicon glyphicon-tag"></span></td>--}}
                         </tr>
+                    @endif
                         <tr>
                             <td> {{ $item->client_price}} </td>
                             <td> @lang('variables.client_price')</td>
                             {{--<td><span class="glyphicon glyphicon-tag"></span></td>--}}
                         </tr>
+                         @if(Auth::user()->type=='admin')
                         <tr>
                             <td> {{ $item->count}} {{$item->unit}}</td>
                             <td> @lang('variables.count')</td>
                             {{--<td><span class="glyphicon glyphicon-tag"></span></td>--}}
                         </tr>
+                        
                         <tr>
                             <td> {{$item->sold['all']}}</td>
                             <td> @lang('variables.sold')</td>
                         </tr>
-                    @endif
+                         @endif
                     </tbody>
                 </table>
 
