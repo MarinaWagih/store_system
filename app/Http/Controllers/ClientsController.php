@@ -16,7 +16,7 @@ class ClientsController extends Controller
      * @var int
      * Number of pagination result
      */
-    protected $pagination_No=5;
+    protected $pagination_No=10;
 
     /**
      * Constructor
