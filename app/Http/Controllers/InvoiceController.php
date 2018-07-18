@@ -19,7 +19,7 @@ class InvoiceController extends Controller
      * @var int
      * Number of pagination result
      */
-    protected $pagination_No = 10;
+    protected $pagination_No = 20;
 
     /**
      * Constructor

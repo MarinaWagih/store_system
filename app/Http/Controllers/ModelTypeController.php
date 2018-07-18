@@ -15,7 +15,7 @@ class ModelTypeController extends Controller
      * @var int
      * Number of pagination result
      */
-    protected $pagination_No=5;
+    protected $pagination_No=10;
     /**
      * Constructor
      * to add Middleware That needed to this controller

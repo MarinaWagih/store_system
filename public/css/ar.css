@@ -113,7 +113,7 @@ input, button{
 }
 
 .title-print{
-    font-size: 20px;
+    font-size: 10px;
 }
 
 .dash_link{
@@ -237,7 +237,7 @@ input, button{
 }
 #printableContent table{
     text-align: center !important;
-    font-size: 24px;
+    font-size: 10px;
     margin: 0 auto;
     border: #ccc solid 1px;
 }

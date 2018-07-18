@@ -60,11 +60,12 @@ class Item extends Model
         $sold['all']=0;
         foreach($this->invoices as $inv)
         {
-            if(!isset($sold[$inv->pivot->size]))
+            $size=strtolower($inv->pivot->size);
+            if(!isset($sold[$size]))
             {
-                $sold[strtolower($inv->pivot->size)]=0;
+                $sold[$size]=0;
             }
-            $sold[$inv->pivot->size]+=$inv->pivot->quantity;
+            $sold[$size]+=$inv->pivot->quantity;
             $sold['all'] += $inv->pivot->quantity;
         }
 //        dd($sold);
