@@ -4,10 +4,10 @@ html, body {
     background-repeat: no-repeat;
     background-color: #e8edf3;
     background-size: 100%;
-    background: -webkit-linear-gradient( #22264b , #b56969  , #e6cf8b ,#e8edf3); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#22264b , #b56969  , #e6cf8b ,#e8edf3); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#22264b , #b56969  , #e6cf8b ,#e8edf3 ); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#22264b , #b56969  , #e6cf8b ,#e8edf3 ); /* Standard syntax */
+    background: -webkit-linear-gradient(#e6cf8b, #e6cf8b, #b56969, #22264b    ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e6cf8b, #e6cf8b, #b56969, #22264b  ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e6cf8b, #e6cf8b, #b56969, #22264b   ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e6cf8b, #e6cf8b, #b56969, #22264b  ); /* Standard syntax */
 
 }
 
@@ -83,4 +83,21 @@ input{
 }
 .reg{
     margin-top: 20px;
+}
+.logo_1st_part {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    display: inline-block;
+    font-family: fantasy;
+    font-size: 28px;
+    color: #fff;
+}
+.logo_2nd_part {
+    display: inline-block;
+    font-size: 30px;
+    font-family: fantasy;
+    color: #f00;
 }

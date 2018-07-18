@@ -102,7 +102,7 @@ return [
     'printing_txt'=>'البضاعه المباعة  لا  ترد ولكن يمكن استبدالالها خلال ١٤ يوم من تاريخ الشراء',
     'client_name'=>'اسم العميل',
     'full_code'=>'الباركود',
-    'brand'=>'So what',
+    'brand'=>'<div class="logo_1st_part">SO</div><div class="logo_2nd_part">WHAT</div>',
     ''=>'',
     ''=>'',
 ];

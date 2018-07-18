@@ -205,7 +205,7 @@
     </div>
     <div id="printableArea" class="hidden">
         <div id="printableContent" class="dir-ltr">
-            <h1 class="brandName">Skull</h1>
+            <h1 class="brandName">@lang("variables.brand")</h1>
             <p class="title-print">
                Number: {{$invoice->id}}
             </p>

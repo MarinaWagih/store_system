@@ -17,7 +17,7 @@
     </div>
     <div class="col-lg-6">
         <h1 class="title">
-            @lang('variables.system') @lang('variables.clients')
+            @lang("variables.brand")
         </h1>
         <h2 class="title2">
             @lang('variables.login')

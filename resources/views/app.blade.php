@@ -17,7 +17,7 @@
     <div class="container-fluid title3">
         <div class="navbar-header navbar-right">
             <a class="navbar-brand  dash_link" href="{{ URL::action('HomeController@index') }}">
-                <img alt="@lang('variables.system') @lang('variables.clients') " src="">
+                @lang("variables.brand")
             </a>
 
         </div>
