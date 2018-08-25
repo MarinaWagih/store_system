@@ -42,7 +42,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::orderBy('date', 'asc')
+        $invoices = Invoice::orderBy('id', 'desc')
             ->paginate($this->pagination_No);
         return view('invoice.all')->with(['invoices' => $invoices]);
     }

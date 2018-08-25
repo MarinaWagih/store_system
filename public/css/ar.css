@@ -234,6 +234,8 @@ input, button{
 
 #printableContent{
     text-align: center !important;
+    margin    : 2mm !important;
+    padding   : 0 !important;
 }
 #printableContent table{
     text-align: center !important;
