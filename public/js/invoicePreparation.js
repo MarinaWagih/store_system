@@ -3,20 +3,19 @@ $(document).ready(function () {
         var itemCount=$("#tableBody").children().length;
         var total_before_discount=0.0;
         var total_after_discount=0.0;
+        var additional_discount_percentage=parseFloat($("#additional_discount_percentage").val())||0;
+        var additional_discount_value=parseFloat($("#additional_discount_value").val())||0;
         for(var i=0;i<itemCount;i++)
         {
-            var quantity=parseInt($("[name='items["+i+"][quantity]']").val());
+            var quantity=parseInt($("[name='items["+i+"][quantity]']").val())||1;
             var price=parseFloat($("[name='items["+i+"][price]']").val());
-            var discount_percent=parseFloat($("[name='items["+i+"][discount_percent]']").val());
+            var discount_percent=parseFloat($("[name='items["+i+"][discount_percent]']").val())||0;
+            var discount_value=parseFloat($("[name='items["+i+"][discount_value]']").val())||0;
             var price_before_discount=parseFloat(quantity*price);
-            var price_after_discount=parseFloat(price_before_discount-(price_before_discount*discount_percent/100));
-            console.log('==============call=================');
-            console.log('quantity',quantity);
-            console.log('price',price);
-            console.log('discount_percent',discount_percent);
-            console.log('price_before_discount',price_before_discount);
-            console.log('price_after_discount',price_after_discount);
-            console.log('===================================');
+            var price_after_discount=parseFloat(
+                price_before_discount -
+               (price_before_discount*discount_percent/100) -
+                discount_value);
 
             $("[name='items["+i+"][quantity]']").val(quantity?quantity:1);
             $("[name='items["+i+"][price]']").val(price?price:0);
@@ -27,8 +26,12 @@ $(document).ready(function () {
              total_after_discount +=price_after_discount;
         }
         $("#Total_invoice_before_discount").html(total_before_discount);
-        $("#Total_invoice_after_discount").html(total_after_discount);
-        $("#total_after_sales_tax").val(total_after_discount);
+        var total_after_add_discount=
+                                    total_after_discount -
+                                    (total_after_discount*additional_discount_percentage/100) -
+                                    additional_discount_value;
+        $("#Total_invoice_after_discount").html(total_after_add_discount);
+        $("#total_after_sales_tax").val(total_after_add_discount);
     };
     var bindSelec2 = function(elem){
         elem.select2({

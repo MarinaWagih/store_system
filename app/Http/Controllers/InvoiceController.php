@@ -191,36 +191,45 @@ class InvoiceController extends Controller
     public function getTotalFromDateToDate(Request $request)
     {
 //        dd($request->all());
-        $invoices =Invoice::selectRaw('sum(total_after_sales_tax) as total')
-            ->where('date','<=',$request->get('start_date'))
-            ->where('date','>=',$request->get('end_date'))
-            ->lists('total')->toArray();
-        $invoices_ids=Invoice::
-              where('date','<=',$request->get('end_date'))
-            ->where('date','>=',$request->get('start_date'))
-            ->lists('id')->toArray();
-        $items=InvoiceItem::selectRaw('sum(quantity) as count , item_id')
-            ->whereIn('invoice_id',$invoices_ids)
-            ->groupBy('item_id')
-            ->get()
-            ->toArray();
-        $total_price=0;
-        $total_client_price=0;
-        foreach($items as $i=>$item)
+        $invoices =Invoice::where('date','<=',$request->get('start_date'))
+            ->where('date','>=',$request->get('end_date'))->get();
+//        echo "<pre>";
+        $items=[];
+        $total_price=0;//actual
+        $total_client_price=0;//selling price
+        foreach($invoices as $i=>$invoice)
         {
-            $item_data=Item::Find($item['item_id']);
-            if($item_data)
+//            var_dump("==================id================\n");
+//            var_dump($invoice->id);
+//            var_dump("\n");
+//            var_dump($invoice->items);
+//            var_dump("\n");
+//            var_dump("==================================");
+//            var_dump("\n");
+            $total_client_price+=$invoice->total_after_sales_tax;
+            foreach($invoice->items as $j=>$item)
             {
-                $items[$i]['item']=$item_data;
-                $items[$i]['total_price']=$item_data->price*$item['count'];
-                $items[$i]['total_client_price']=$item_data->client_price*$item['count'];
-                $total_price+=$items[$i]['total_price'];
-                $total_client_price+=$items[$i]['total_client_price'];
+                //item
 
+                    $total_price+=($item->pivot->quantity*$item->price);
+
+                    if(!isset($items[$item->id]))
+                    {
+                        $items[$item->id]=[
+                            "count"          => 0,
+                            "buying_price"   => 0,
+                            "selling_price"  => 0,
+                            "name"           => $item->name
+                        ];
+                    }
+                    $og_selling_price=($item->pivot->quantity*$item->client_price);
+                    $items[$item->id]["count"]         += $item->pivot->quantity;
+                    $items[$item->id]["buying_price"]  += ($item->pivot->quantity*$item->price);
+                    $items[$item->id]["selling_price"] += ($og_selling_price-($og_selling_price*($item->discount_percent/100))-$item->discount_value);
             }
+
         }
         $result=[
-            'invoices_pay_sell'=>$invoices,
             'total_price'=>$total_price,
             'total_client_price'=>$total_client_price,
             'items'=>$items,

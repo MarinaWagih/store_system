@@ -43,17 +43,6 @@
     @if(isset($result))
         <div class="row">
             <div class="col-sm-6">
-                <div class="col-sm-6">{{number_format(isset($result['invoices_pay_sell']['pay'])?$result['invoices_pay_sell']['pay']:0,1)}}</div>
-                <div class="col-sm-6">أجمالي المدفوع</div>
-            </div>
-            <div class="col-sm-6">
-                <div class="col-sm-6">{{number_format(isset($result['invoices_pay_sell']['sell'])?$result['invoices_pay_sell']['sell']:0,1)}}</div>
-                <div class="col-sm-6">أجمالي المبيعات</div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
                 <div class="col-sm-6">{{number_format($result['total_price'],1)}}</div>
                 <div class="col-sm-6">أجمالي البيع بسعر ألجملة</div>
             </div>
@@ -87,11 +76,11 @@
                         <tbody id="result">
                             @foreach($result['items'] as $item)
                                 <tr>
-                                    <td>{{number_format($item['total_client_price']-$item['total_price'],1)}}</td>
-                                    <td>{{number_format($item['total_client_price'],1)}}</td>
-                                    <td>{{number_format($item['total_price'],1)}}</td>
+                                    <td>{{number_format($item['selling_price']-$item['buying_price'],1)}}</td>
+                                    <td>{{number_format($item['selling_price'],1)}}</td>
+                                    <td>{{number_format($item['buying_price'],1)}}</td>
                                     <td>{{number_format($item['count'],1)}}</td>
-                                    <td>{{$item['item']->name}}</td>
+                                    <td>{{$item['name']}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

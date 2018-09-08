@@ -24,7 +24,8 @@ class InvoiceItem extends Model
                             'quantity',
                             'price',
                             'size',
-                            'discount_percent'
+                            'discount_percent',
+                            'discount_value',
                           ];
     public function invoice()
     {

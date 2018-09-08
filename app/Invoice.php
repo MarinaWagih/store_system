@@ -22,6 +22,7 @@ class Invoice extends Model
     protected $fillable = [
                                 'date',
                                 'additional_discount_percentage',
+                                'additional_discount_value',
                                 'total_after_sales_tax',
                                 'client_name'
                           ];
@@ -32,7 +33,7 @@ class Invoice extends Model
     public function items()
     {
         return $this->belongsToMany('App\Item')
-            ->withPivot('quantity', 'price', 'discount_percent','size');
+            ->withPivot('quantity', 'price', 'discount_percent','discount_value','size');
     }
 
     public function getDateAttribute()

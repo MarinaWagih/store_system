@@ -29,27 +29,44 @@
 </div>
 {{--===================Form=================================--}}
 {{--========================================================--}}
+<div class="form-group col-md-6">
+    {!! Form::label('client_name',Lang::get('variables.client_name')) !!}
+    {!! Form::text('client_name',null,['class'=>'form-control ','id'=>'client_name']) !!}
+</div>
+<div class="form-group col-md-6">
+    {!! Form::label('date',$date) !!}
+    {!! Form::input('date','date',null,['class'=>'form-control ','id'=>'date',]) !!}
+</div>
 <div class="form-group col-md-6" id="DiscountFormGroup">
     <label  for="exampleInputAmount">@lang('variables.discount')</label>
     <div class="input-group">
         <div class="input-group-addon">%</div>
         <input type="number"
-               class="form-control dir-rtl"
-               id="discount_percentage"
+               class="form-control dir-rtl _item_details"
+               id="additional_discount_percentage"
+               name="additional_discount_percentage"
                placeholder="@lang('variables.percentage') @lang('variables.discount')"
                min="0"
                value="0">
         <div class="input-group-addon">.00</div>
     </div>
 </div>
-<div class="form-group col-md-6">
-    {!! Form::label('date',$date) !!}
-    {!! Form::input('date','date',null,['class'=>'form-control ','id'=>'date',]) !!}
+<div class="form-group col-md-6" id="DiscountFormGroup">
+    <label  for="exampleInputAmount">@lang('variables.discount')</label>
+    <div class="input-group">
+        <div class="input-group-addon">EGP</div>
+        <input type="number"
+               class="form-control dir-rtl _item_details"
+               id="additional_discount_value"
+               name="additional_discount_value"
+               placeholder="@lang('variables.percentage') @lang('variables.discount')"
+               min="0"
+               value="0">
+        <div class="input-group-addon">.00</div>
+    </div>
 </div>
-<div class="form-group col-md-12">
-    {!! Form::label('client_name',Lang::get('variables.client_name')) !!}
-    {!! Form::text('client_name',null,['class'=>'form-control ','id'=>'client_name']) !!}
-</div>
+
+
 {{--========================================================--}}
 {{--========================================================--}}
 @include('invoice._item_invoice')

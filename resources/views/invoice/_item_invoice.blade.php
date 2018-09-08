@@ -10,8 +10,9 @@
         <th class="col-md-2">@lang('variables.name')</th>
         <th class="col-md-1">@lang('variables.theSize')</th>
         <th class="col-md-1">@lang('variables.quantity')</th>
-        <th class="col-md-2">@lang('variables.price') @lang('variables.before') @lang('variables.discount')</th>
-        <th class="col-md-1">@lang('variables.percentage')  @lang('variables.discount')</th>
+        <th class="col-md-1">@lang('variables.price') @lang('variables.before') @lang('variables.discount')</th>
+        <th class="col-md-1">@lang('variables.percentage')  @lang('variables.discount') "EGP"</th>
+        <th class="col-md-1">@lang('variables.percentage')  @lang('variables.discount') "%"</th>
         <th class="col-md-2">@lang('variables.price') @lang('variables.after') @lang('variables.discount')</th>
         <th class="col-md-2">@lang('variables.the_total') @lang('variables.after') @lang('variables.discount')</th>
         <th class="col-md-1">@lang('variables.operations')</th>
@@ -55,9 +56,16 @@
                 <td>
                     <input name="discount_percent"
                            class="form-control _item_details"
+                           value="{{$item->pivot->discount_value}}"
+                            >
+                </td>
+                <td>
+                    <input name="discount_percent"
+                           class="form-control _item_details"
                            value="{{$item->pivot->discount_percent}}"
                             >
                 </td>
+
                 <td>
                     <input
                             class="form-control"
@@ -89,10 +97,11 @@
             <td><select class='js-example-rtl form-control items_list' name="item_id"></select></td>
             <td><input type="text"   name="size"                  class="form-control"                value="" ></td>
             <td><input type="number" name="quantity"              class="form-control _item_details"  value="0" min="0"></td>
-            <td><input type="number" name="price"                 class="form-control _item_details"  value="0" min="0" step="0.5"  ></td>
+            <td><input type="number" name="price"                 class="form-control _item_details"  value="0" min="0" step="0.5"></td>
+            <td><input type="number" name="discount_value"        class="form-control _item_details"  value="0" min="0" step="0.5"></td>
             <td><input type="number" name="discount_percent"      class="form-control _item_details"  value="0" min="0" step="0.1" ></td>
-            <td><input type="text" name="total_before_discount" class="form-control"                  value="0"   disabled></td>
-            <td><input type="text" name="total_after_discount"  class="form-control"                  value="0"   disabled></td>
+            <td><input type="text"   name="total_before_discount" class="form-control"                value="0"   disabled></td>
+            <td><input type="text"   name="total_after_discount"  class="form-control"                value="0"   disabled></td>
             <td><input data-repeater-delete type="button" class="btn btn-danger delete_item " value="@lang('variables.delete')"/></td>
         </tr>
     @endif
