@@ -67,7 +67,7 @@
                         <tr>
                             <th style="    text-align: center;">@lang('variables.profits')</th>
                             <th style="    text-align: center;">@lang('variables.client_price')</th>
-                            <th style="    text-align: center;">@lang('variables.total')</th>
+                            {{--<th style="    text-align: center;">@lang('variables.total')</th>--}}
                             <th style="    text-align: center;">@lang('variables.quantity')</th>
                             <th style="    text-align: center;">@lang('variables.name')</th>
 
@@ -76,11 +76,11 @@
                         <tbody id="result">
                             @foreach($result['items'] as $item)
                                 <tr>
-                                    <td>{{number_format($item['selling_price']-$item['buying_price'],1)}}</td>
-                                    <td>{{number_format($item['selling_price'],1)}}</td>
-                                    <td>{{number_format($item['buying_price'],1)}}</td>
-                                    <td>{{number_format($item['count'],1)}}</td>
-                                    <td>{{$item['name']}}</td>
+                                    <td style="text-align: center;">{{number_format($item['selling_price']-$item['buying_price'],1)}}</td>
+                                    <td style="text-align: center;">{{number_format($item['selling_price'],1)}}</td>
+{{--                                    <td style="text-align: center;">{{number_format($item['buying_price'],1)}}</td>--}}
+                                    <td style="text-align: center;">{{number_format($item['count'],1)}}</td>
+                                    <td style="text-align: center;">{{$item['name']}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

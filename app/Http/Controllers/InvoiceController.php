@@ -199,13 +199,6 @@ class InvoiceController extends Controller
         $total_client_price=0;//selling price
         foreach($invoices as $i=>$invoice)
         {
-//            var_dump("==================id================\n");
-//            var_dump($invoice->id);
-//            var_dump("\n");
-//            var_dump($invoice->items);
-//            var_dump("\n");
-//            var_dump("==================================");
-//            var_dump("\n");
             $total_client_price+=$invoice->total_after_sales_tax;
             foreach($invoice->items as $j=>$item)
             {
@@ -222,11 +215,12 @@ class InvoiceController extends Controller
                             "name"           => $item->name
                         ];
                     }
-                    $og_selling_price=($item->pivot->quantity*$item->client_price);
+                    $og_selling_price=($item->pivot->quantity*$item->pivot->price);
                     $items[$item->id]["count"]         += $item->pivot->quantity;
                     $items[$item->id]["buying_price"]  += ($item->pivot->quantity*$item->price);
-                    $items[$item->id]["selling_price"] += ($og_selling_price-($og_selling_price*($item->discount_percent/100))-$item->discount_value);
+                    $items[$item->id]["selling_price"] += ($og_selling_price-($og_selling_price*($item->pivot->discount_percent/100))-$item->pivot->discount_value);
             }
+
 
         }
         $result=[
