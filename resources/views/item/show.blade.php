@@ -56,6 +56,7 @@
 
 
             </div>
+            @if($item->sizes)
             <div class="center">
                 <span class="color_pink title3">
                     @lang('variables.theSizes')
@@ -76,6 +77,7 @@
                         </b>
                         @endif
                     </div>
+
                     @foreach($item->sizes as $size=>$val)
                         <div class="row dir-rtl masafa margin-check">
                             <div class="col-xs-3 pull-right">
@@ -97,6 +99,9 @@
                     @endforeach
 
             </div>
+            @else
+                <h2 class="center">@lang('variables.no_sizes_found')</h2>
+            @endif
         </div>
     </div>
 @stop

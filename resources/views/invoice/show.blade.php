@@ -237,7 +237,7 @@
                     </tr>
                     </tbody>
             </table>
-            <h3> @lang('variables.printing_txt') </h3>
+            <p style="font-size: xx-small;"> @lang('variables.printing_txt') </p>
         </div>
     </div>
 @stop

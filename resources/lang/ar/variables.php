@@ -99,10 +99,12 @@ return [
     'sizesHelp'=>'ادخل المقاسات المتاحة  مفصولة ب  ","',
     'sold'=>'المباع',
     'remains'=>'المتبقي',
-    'printing_txt'=>'البضاعه المباعة  لا  ترد ولكن يمكن استبدالالها خلال ١٤ يوم من تاريخ الشراء',
+    'printing_txt'=>'البضاعه المباعة لا ترد ولكن يمكن استبدالها خلال ١٤ يوم من تاريخ الشراء
+                    <br>
+                    tel: 01200782627 , <br>&nbsp; 01274615960 ',
     'client_name'=>'اسم العميل',
     'full_code'=>'الباركود',
-    'brand'=>'<div class="logo_1st_part">SO</div><div class="logo_2nd_part">WHAT</div>',
-    ''=>'',
+    'brand'=>'<div class="logo_2nd_part">التركي</div>',
+    'no_sizes_found'=>'لا توجد مقاسات',
     ''=>'',
 ];
