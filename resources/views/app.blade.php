@@ -73,6 +73,7 @@
     {{--**********************************************--}}
     
     {{--******************item Element**************--}}
+    @if(Auth::user()->type=='admin')
     <div class="panel-default">
         <a class="collapsed" role="button"
            data-toggle="collapse" data-parent="#accordion"
@@ -100,8 +101,10 @@
         </div>
     </div>
     <hr>
+    @endif
     {{--**********************************************--}}
     {{--******************item Element**************--}}
+    @if(Auth::user()->type=='admin')
     <div class="panel-default">
         <a class="collapsed"
            role="button"
@@ -133,6 +136,7 @@
         </div>
     </div>
     <hr>
+    @endif
     {{--**********************************************--}}
 
     {{--******************invoice Element**************--}}
@@ -167,8 +171,7 @@
   
     {{--**********************************************--}}
     {{--******************report Element**************--}}
-        @if(Auth::user()->type!='user')
-
+{{--    @if(Auth::user()->type!='user')--}}
     <div class="panel-default">
         <a
            href="{{URL::action('InvoiceController@getTotalFromDateToDateForm')}}"
@@ -180,7 +183,7 @@
 
     </div>
     <hr>
-    @endif
+{{--    @endif--}}
     {{--**********************************************--}}
 </div>
 </div>

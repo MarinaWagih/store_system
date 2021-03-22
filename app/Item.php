@@ -48,7 +48,7 @@ class Item extends Model
     public function save(array $options = [])
     {
         // before save code
-        $this->full_code=$this->client->code."/".$this->modelType->code."/".$this->code;
+        $this->full_code=$this->code;
 //        dd($this->attributes['sizes_count']);
         parent::save($options);
         // after save code

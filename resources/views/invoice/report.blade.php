@@ -42,18 +42,22 @@
     </div>
     @if(isset($result))
         <div class="row">
+            @if(Auth::user()->type=='admin')
             <div class="col-sm-6">
                 <div class="col-sm-6">{{number_format($result['total_price'],1)}}</div>
                 <div class="col-sm-6">أجمالي البيع بسعر ألجملة</div>
             </div>
+            @endif
             <div class="col-sm-6">
                 <div class="col-sm-6">{{number_format($result['total_client_price'],1)}}</div>
                 <div class="col-sm-6">أجمالي البيع بسعر البيع</div>
             </div>
+            @if(Auth::user()->type=='admin')
             <div class="col-sm-12" style="background-color: #eee">
                 <div class="col-sm-6">{{number_format($result['total_client_price']-$result['total_price'],1)}}</div>
                 <div class="col-sm-6">ألمكسب</div>
             </div>
+            @endif
         </div>
         <div class="row masafa">
             <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -65,7 +69,7 @@
                         <caption class="color_pink title3">@lang('variables.invoices')</caption>
                         <thead>
                         <tr>
-                            <th style="    text-align: center;">@lang('variables.profits')</th>
+                            @if(Auth::user()->type=='admin')<th style="    text-align: center;">@lang('variables.profits')</th>@endif
                             <th style="    text-align: center;">@lang('variables.client_price')</th>
                             {{--<th style="    text-align: center;">@lang('variables.total')</th>--}}
                             <th style="    text-align: center;">@lang('variables.quantity')</th>
@@ -76,7 +80,7 @@
                         <tbody id="result">
                             @foreach($result['items'] as $item)
                                 <tr>
-                                    <td style="text-align: center;">{{number_format($item['selling_price']-$item['buying_price'],1)}}</td>
+                                    @if(Auth::user()->type=='admin') <td style="text-align: center;">{{number_format($item['selling_price']-$item['buying_price'],1)}}</td>@endif
                                     <td style="text-align: center;">{{number_format($item['selling_price'],1)}}</td>
 {{--                                    <td style="text-align: center;">{{number_format($item['buying_price'],1)}}</td>--}}
                                     <td style="text-align: center;">{{number_format($item['count'],1)}}</td>

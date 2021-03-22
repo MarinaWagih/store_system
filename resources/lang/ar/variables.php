@@ -104,7 +104,7 @@ return [
                     tel: 01200782627 , <br>&nbsp; 01274615960 ',
     'client_name'=>'اسم العميل',
     'full_code'=>'الباركود',
-    'brand'=>'<div class="logo_2nd_part">التركي</div>',
+    'brand'=>'<div class="logo_2nd_part">Juba</div>',
     'no_sizes_found'=>'لا توجد مقاسات',
     ''=>'',
 ];
