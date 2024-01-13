@@ -57,3 +57,9 @@ Route::get('/invoice/search','InvoiceController@search');
 Route::post('/invoice/report','InvoiceController@getTotalFromDateToDate');
 Route::get('/invoice/report','InvoiceController@getTotalFromDateToDateForm');
 Route::resource('/invoice','InvoiceController');
+
+//Employee Routes
+Route::get('/employee/{id}/delete','EmployeeController@destroy');
+Route::get('/employee/search','EmployeeController@search');
+Route::post('/employee/search','EmployeeController@search');
+Route::resource('/employee','EmployeeController');

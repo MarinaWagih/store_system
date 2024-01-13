@@ -35,6 +35,10 @@ class Invoice extends Model
         return $this->belongsToMany('App\Item')
             ->withPivot('quantity', 'price', 'discount_percent','discount_value','size');
     }
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee');
+    }
 
     public function getDateAttribute()
     {
