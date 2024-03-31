@@ -168,6 +168,11 @@
                             @lang('variables.add') @lang('variables.employees')
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
+                        <br>
+                        <a  href="{{URL::action('EmployeeController@getReport')}}" class="dash_link">
+                                @lang('variables.employees_profits')
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
                     @endif
                 </div>
             </div>
@@ -213,7 +218,7 @@
            href="{{URL::action('InvoiceController@getTotalFromDateToDateForm')}}"
            aria-controls="collapseinvoice">
             <div class="color title3 panel_title" role="tab" id="headinginvoice">
-                              الارباح
+                @lang('variables.the_profits')
             </div>
         </a>
 

@@ -31,7 +31,8 @@
                     <tr class="dir-rtl">
                         <th class="dir-rtl">@lang('variables.operations')</th>
                         <th class="dir-rtl">@lang('variables.date')</th>
-                        {{--<th>@lang('variables.client')</th>--}}
+                        <th>@lang('variables.client_phone')</th>
+                        <th>@lang('variables.client_name')</th>
                         <th class="dir-rtl">@lang('variables.invoice')</th>
                         {{--<th>@lang('variables.number')</th>--}}
 
@@ -49,7 +50,8 @@
                                     @endif
                                 </td>
                                 <td class="dir-rtl">{{$invoice->date}}</td>
-                                {{--<td>{{$invoice->client->name}}</td>--}}
+                                <td>{{$invoice->client_phone}}</td>
+                                <td>{{$invoice->client_name}}</td>
 
                                 <th scope="row" class="dir-rtl">{{$invoice->id}}</th>
                             </tr>
@@ -99,17 +101,8 @@
                                 //console.log(result.data[i]);
                                 toShow+='</td>';
                                 toShow+='<td>'+result.data[i].date+'</td>';
-                                //toShow+='<td>'+result.data[i].total+'</td>';
-                                toShow+='<td>';
-                                if(result.data[i].installation=='1')
-                                {
-                                    toShow+='@lang('variables.with_installation')'  ;
-                                }
-                                else
-                                {
-                                    toShow+='@lang('variables.without_installation')';
-                                }
-                                toShow+='</td>';
+                                toShow+='<td>'+(result.data[i].client_phone?result.data[i].client_phone:"-")+'</td>';
+                                toShow+='<td>'+(result.data[i].client_name?result.data[i].client_name:"-")+'</td>';
                                 toShow+='<td>'+result.data[i].id+'</td>';
                                 toShow+='</tr>';
                             }

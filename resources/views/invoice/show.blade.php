@@ -11,26 +11,38 @@
         {{--========================================================--}}
         <div class="row">
             <div class="left first">
-                <br>
-                <br>
-                <p class="title4">
+                <div class="title4 col-md-12">
                     {{$invoice->id}} : @lang('variables.number')
-                </p>
-                <hr>
-                <p class="title4">
+                    <hr>
+                </div>
+                <div class="title4  col-md-6">
+                    {{$invoice->employee?$invoice->employee->name:"-"}} : @lang('variables.the_employee')
+                    <hr>
+                </div>
+                <div class="title4 col-md-6">
                     {{$invoice->date}} : @lang('variables.date')
-                </p>
-                <hr>
-                <p class="title4">
-                    {{$invoice->client_name}} : @lang('variables.client_name')
-                </p>
+                    <hr>
+                </div>
+
+                <div class="title4 col-md-6">
+                    {{$invoice->client_phone?:"-"}} : @lang('variables.client_phone')
+                    <hr>
+                </div>
+                <div class="title4 col-md-6">
+                    {{$invoice->client_name?:"-"}} : @lang('variables.client_name')
+                    <hr>
+                </div>
+                <div class="title4 col-md-6"></div>
+                <div class="title4 col-md-6">
+                    @if(!$invoice->client_way_of_payment)
+                     - :@lang('variables.client_way_of_payment')
+                    @else
+                        @lang('variables.client_way_of_payment') : {{trans('variables.'.$invoice->client_way_of_payment)}}
+                    @endif
+                    <hr>
+                </div>
+
             </div>
-            {{--<div class="left first">--}}
-                {{--<img src="{{URL::asset('/logo.jpg')}}" class="show_img">--}}
-            {{--</div>--}}
-            {{--<div class="left first">--}}
-               {{--<img src="{{URL::asset('/pic2.jpg')}}" class="show_img">--}}
-           {{--</div>--}}
        </div>
         {{--========================================================--}}
         {{--========================================================--}}
@@ -41,48 +53,48 @@
             <div class="col-lg-8">
                 <table class="table table-responsive">
                     <thead>
-                    <tr>
-                        <th>@lang('variables.the_total') @lang('variables.after') @lang('variables.discount')</th>
-                        <th>@lang('variables.price') @lang('variables.after') @lang('variables.discount')</th>
-                        <th>@lang('variables.percentage')  @lang('variables.discount')</th>
-                        <th>@lang('variables.price') @lang('variables.before') @lang('variables.discount')</th>
-                        <th>@lang('variables.quantity')</th>
-                        <th>@lang('variables.theSize')</th>
-                        <th>@lang('variables.name')</th>
-                        <th>@lang('variables.number')</th>
-                    </tr>
+                        <tr>
+                            <th>@lang('variables.the_total') @lang('variables.after') @lang('variables.discount')</th>
+                            <th>@lang('variables.price') @lang('variables.after') @lang('variables.discount')</th>
+                            <th>@lang('variables.percentage')  @lang('variables.discount')</th>
+                            <th>@lang('variables.price') @lang('variables.before') @lang('variables.discount')</th>
+                            <th>@lang('variables.quantity')</th>
+                            <th>@lang('variables.theSize')</th>
+                            <th>@lang('variables.name')</th>
+                            <th>@lang('variables.number')</th>
+                        </tr>
                     </thead>
                     <tbody id="tableBody">
-                    @if(isset($invoice))
-                        @foreach($invoice->items as $item)
-                            <tr id="{{$item->id}}" class="items_row">
-                               <td>
-                                    {{($item->pivot->price-($item->pivot->price *$item->pivot->discount_percent)/100)*$item->pivot->quantity }}
-                                </td>
-                                <td>
-                                    {{$item->pivot->price-($item->pivot->price *$item->pivot->discount_percent)/100  }}
-                                </td>
-                                <td>
-                                    {{$item->pivot->discount_percent}}
-                                </td>
-                                <td>
-                                    {{ $item->pivot->price  }}
-                                </td>
-                                <td>
-                                    {{ $item->pivot->quantity  }}
-                                </td>
-                                <td>
-                                    {{ $item->pivot->size  }}
-                                </td>
-                                <td>
-                                    {{ $item->name  }}
-                                </td>
-                                <td>
-                                    {{ $item->id }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+                        @if(isset($invoice))
+                            @foreach($invoice->items as $item)
+                                <tr id="{{$item->id}}" class="items_row">
+                                   <td>
+                                        {{($item->pivot->price-($item->pivot->price *$item->pivot->discount_percent)/100)*$item->pivot->quantity }}
+                                    </td>
+                                    <td>
+                                        {{$item->pivot->price-($item->pivot->price *$item->pivot->discount_percent)/100  }}
+                                    </td>
+                                    <td>
+                                        {{$item->pivot->discount_percent}}
+                                    </td>
+                                    <td>
+                                        {{ $item->pivot->price  }}
+                                    </td>
+                                    <td>
+                                        {{ $item->pivot->quantity  }}
+                                    </td>
+                                    <td>
+                                        {{ $item->pivot->size  }}
+                                    </td>
+                                    <td>
+                                        {{ $item->name  }}
+                                    </td>
+                                    <td>
+                                        {{ $item->id }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
 

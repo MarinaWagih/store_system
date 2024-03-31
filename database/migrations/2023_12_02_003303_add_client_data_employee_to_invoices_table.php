@@ -14,6 +14,7 @@ class AddClientDataEmployeeToInvoicesTable extends Migration
     {
         Schema::table('invoices', function (Blueprint $table) {
             $table->string('client_phone')->nullable();
+            $table->string('client_way_of_payment')->nullable();
             $table->integer('employee_id')->nullable()->unsigned();
             $table->foreign('employee_id')
                 ->references('id')
@@ -31,6 +32,11 @@ class AddClientDataEmployeeToInvoicesTable extends Migration
     {
         Schema::table('invoices', function (Blueprint $table) {
             $table->removeColumn('client_phone');
+            $table->removeColumn('client_way_of_payment');
+
+            $table->dropForeign('employee_id');
+            $table->removeColumn('invoices_employee_id_foreign');
+
         });
     }
 }

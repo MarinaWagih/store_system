@@ -24,7 +24,10 @@ class Invoice extends Model
                                 'additional_discount_percentage',
                                 'additional_discount_value',
                                 'total_after_sales_tax',
-                                'client_name'
+                                'client_name',
+                                'client_phone',
+                                'client_way_of_payment',
+                                'employee_id'
                           ];
     /**
      * @var array Of dates to be treated as Carbon Object

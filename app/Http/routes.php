@@ -61,5 +61,7 @@ Route::resource('/invoice','InvoiceController');
 //Employee Routes
 Route::get('/employee/{id}/delete','EmployeeController@destroy');
 Route::get('/employee/search','EmployeeController@search');
+Route::get('/employee/report','EmployeeController@getReport');
+Route::post('/employee/report','EmployeeController@getReport');
 Route::post('/employee/search','EmployeeController@search');
 Route::resource('/employee','EmployeeController');

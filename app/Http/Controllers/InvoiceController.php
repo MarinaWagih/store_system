@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Employee;
 use App\Invoice;
 use App\InvoiceItem;
 use App\Item;
@@ -54,7 +55,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        return view('invoice.create');
+        $employees=Employee::all()->pluck('name','id');
+        return view('invoice.create',['employees'=>$employees]);
     }
 
     /**
@@ -108,8 +110,8 @@ class InvoiceController extends Controller
         $invoice = Invoice::find($id);
         if ($invoice)
         {
-
-                return view('invoice.edit')->with(['invoice' => $invoice]);
+            $employees=Employee::all()->pluck('name','id');
+            return view('invoice.edit')->with(['invoice' => $invoice,'employees'=>$employees]);
         }
         else
         {
@@ -131,7 +133,6 @@ class InvoiceController extends Controller
         $this->validate($request, [
             'date' => 'required|date',
             'items' => 'required',
-//            'client_id' => 'required',
         ]);
         $invoice = Invoice::find($id);
         if ($invoice) {
@@ -165,6 +166,8 @@ class InvoiceController extends Controller
 
         $invoices =Invoice::where('id','like',$request->get('query')."%")
                 ->orWhere('date','like',$request->get('query')."%")
+                ->orWhere('client_phone','like',$request->get('query')."%")
+                ->orWhere('client_name','like',$request->get('query')."%")
                 ->paginate($this->pagination_No);
         $result = $invoices->toArray();
         $result['render'] = $invoices->render();
@@ -190,10 +193,8 @@ class InvoiceController extends Controller
     }
     public function getTotalFromDateToDate(Request $request)
     {
-//        dd($request->all());
-        $invoices =Invoice::where('date','<=',$request->get('start_date'))
-            ->where('date','>=',$request->get('end_date'))->get();
-//        echo "<pre>";
+        $invoices =Invoice::where('date','<=',$request->get('end_date'))
+            ->where('date','>=',$request->get('start_date'))->get();
         $items=[];
         $total_price=0;//actual
         $total_client_price=0;//selling price

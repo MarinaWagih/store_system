@@ -32,6 +32,14 @@ $(document).ready(function () {
                                     additional_discount_value;
         $("#Total_invoice_after_discount").html(total_after_add_discount);
         $("#total_after_sales_tax").val(total_after_add_discount);
+
+        var amount_paid = parseFloat($('#amount_paid').val());
+        console.log('amount_paid',amount_paid);
+        var remaining = amount_paid - total_after_add_discount;
+        console.log('remaining',remaining);
+        if(!remaining||remaining<0) remaining=0;
+        console.log('remaining',remaining);
+        $('#Total_invoice_remaining').html(remaining);
     };
     var bindSelec2 = function(elem){
         elem.select2({
@@ -90,6 +98,7 @@ $(document).ready(function () {
         }
     });
     $(document).on('change','._item_details',ItemsChange);
+    $(document).on('keyup','._item_details',ItemsChange);
     bindSelec2($(".items_list"));
     //$("[data-repeater-create]").trigger('click');
     ItemsChange();

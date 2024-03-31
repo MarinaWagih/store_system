@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Invoice;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -172,5 +173,35 @@ class EmployeeController extends Controller
             return response()->json($employees);
         }
         return response()->json();
+    }
+    public function getReport(Request $request)
+    {
+        $employees=Employee::all()->pluck('name','id');
+        $employee_percentage = 1/100;
+        $result=[
+            'total_price'        => "0",
+            'total_client_price' => "0",
+            'items'              => [],
+            'start_date'         => "",
+            'end_date'           => "",
+        ];
+        if($request->get('employee_id'))
+        {
+            $invoices = Invoice::where('date','<=',   $request->get('end_date'))
+                              ->where('date','>=',   $request->get('start_date'))
+                              ->where('employee_id', $request->get('employee_id'))
+                              ->sum('total_after_sales_tax');
+
+            $result=[
+                'total_price'        => (int)$invoices,
+                'total_employee_percentage' => ((int)$invoices) * $employee_percentage,
+                'start_date'         => $request->get('start_date'),
+                'end_date'           => $request->get('end_date'),
+            ];
+        }
+        return view('employee.report',[
+            'result'=>$result,
+            'employees'          => $employees
+        ]);
     }
 }
